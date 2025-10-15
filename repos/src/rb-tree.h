@@ -1,6 +1,6 @@
 /*
 
-Copyright (c) 2005-2008, Simon Howard
+Copyright (c) 2008, Simon Howard
 
 Permission to use, copy, modify, and/or distribute this software
 for any purpose with or without fee is hereby granted, provided
@@ -18,12 +18,12 @@ CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
  */
 
-/** @file avl-tree.h
+/** @file rb-tree.h
  *
  * @brief Balanced binary tree
  *
- * The AVL tree structure is a balanced binary tree which stores
- * a collection of nodes (see @ref AVLTreeNode).  Each node has
+ * The red-black tree structure is a balanced binary tree which stores
+ * a collection of nodes (see @ref RBTreeNode).  Each node has
  * a key and a value associated with it.  The nodes are sorted
  * within the tree based on the order of their keys. Modifications
  * to the tree are constructed such that the tree remains
@@ -34,107 +34,114 @@ CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  * as a mapping (searching for a value based on its key), or
  * as a set of keys which is always ordered.
  *
- * To create a new AVL tree, use @ref avl_tree_new.  To destroy
- * an AVL tree, use @ref avl_tree_free.
+ * To create a new red-black tree, use @ref rb_tree_new.  To destroy
+ * a red-black tree, use @ref rb_tree_free.
  *
- * To insert a new key-value pair into an AVL tree, use
- * @ref avl_tree_insert.  To remove an entry from an
- * AVL tree, use @ref avl_tree_remove or @ref avl_tree_remove_node.
+ * To insert a new key-value pair into a red-black tree, use
+ * @ref rb_tree_insert.  To remove an entry from a
+ * red-black tree, use @ref rb_tree_remove or @ref rb_tree_remove_node.
  *
- * To search an AVL tree, use @ref avl_tree_lookup or
- * @ref avl_tree_lookup_node.
+ * To search a red-black tree, use @ref rb_tree_lookup or
+ * @ref rb_tree_lookup_node.
  *
  * Tree nodes can be queried using the
- * @ref avl_tree_node_child,
- * @ref avl_tree_node_parent,
- * @ref avl_tree_node_key and
- * @ref avl_tree_node_value functions.
+ * @ref rb_tree_node_child,
+ * @ref rb_tree_node_parent,
+ * @ref rb_tree_node_key and
+ * @ref rb_tree_node_value functions.
  */
 
-#ifndef ALGORITHM_AVLTREE_H
-#define ALGORITHM_AVLTREE_H
+#ifndef ALGORITHM_RB_TREE_H
+#define ALGORITHM_RB_TREE_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /**
- * An AVL tree balanced binary tree.
+ * A red-black tree balanced binary tree.
  *
- * @see avl_tree_new
+ * @see rb_tree_new
  */
-typedef struct _AVLTree AVLTree;
+typedef struct _RBTree RBTree;
 
 #ifdef TEST_ALTERNATE_VALUE_TYPES
 #include "alt-value-type.h"
 #else
 
 /**
- * A key for an @ref AVLTree.
+ * A key for an @ref RBTree.
  */
-typedef void *AVLTreeKey;
+typedef void *RBTreeKey;
 
 /**
- * A value stored in an @ref AVLTree.
+ * A value stored in an @ref RBTree.
  */
-typedef void *AVLTreeValue;
+typedef void *RBTreeValue;
 
 /**
- * A null @ref AVLTreeValue.
+ * A null @ref RBTreeValue.
  */
-#define AVL_TREE_NULL ((void *) 0)
+#define RB_TREE_NULL ((void *) 0)
 
 #endif /* #ifndef TEST_ALTERNATE_VALUE_TYPES */
 
 /**
- * A node in an AVL tree.
+ * A node in a red-black tree.
  *
- * @see avl_tree_node_left_child
- * @see avl_tree_node_right_child
- * @see avl_tree_node_parent
- * @see avl_tree_node_key
- * @see avl_tree_node_value
+ * @see rb_tree_node_child
+ * @see rb_tree_node_parent
+ * @see rb_tree_node_key
+ * @see rb_tree_node_value
  */
-typedef struct _AVLTreeNode AVLTreeNode;
+typedef struct _RBTreeNode RBTreeNode;
 
 /**
- * An @ref AVLTreeNode can have left and right children.
- */
-typedef enum {
-	AVL_TREE_NODE_LEFT = 0,
-	AVL_TREE_NODE_RIGHT = 1
-} AVLTreeNodeSide;
-
-/**
- * Type of function used to compare keys in an AVL tree.
+ * Type of function used to compare keys in a red-black tree.
  *
- * @param value1           The first key.
- * @param value2           The second key.
- * @return                 A negative number if value1 should be sorted
- *                         before value2, a positive number if value2 should
- *                         be sorted before value1, zero if the two keys
+ * @param data1            The first key.
+ * @param data2            The second key.
+ * @return                 A negative number if data1 should be sorted
+ *                         before data2, a positive number if data2 should
+ *                         be sorted before data1, zero if the two keys
  *                         are equal.
  */
-typedef int (*AVLTreeCompareFunc)(AVLTreeKey value1, AVLTreeKey value2);
+typedef int (*RBTreeCompareFunc)(RBTreeKey data1, RBTreeKey data2);
 
 /**
- * Create a new AVL tree.
+ * Each node in a red-black tree is either red or black.
+ */
+typedef enum {
+	RB_TREE_NODE_RED,
+	RB_TREE_NODE_BLACK
+} RBTreeNodeColor;
+
+/**
+ * A @ref RBTreeNode can have left and right children.
+ */
+typedef enum {
+	RB_TREE_NODE_LEFT = 0,
+	RB_TREE_NODE_RIGHT = 1
+} RBTreeNodeSide;
+
+/**
+ * Create a new red-black tree.
  *
  * @param compare_func    Function to use when comparing keys in the tree.
- * @return                A new AVL tree, or NULL if it was not possible
+ * @return                A new red-black tree, or NULL if it was not possible
  *                        to allocate the memory.
  */
-AVLTree *avl_tree_new(AVLTreeCompareFunc compare_func);
+RBTree *rb_tree_new(RBTreeCompareFunc compare_func);
 
 /**
- * Destroy an AVL tree.
+ * Destroy a red-black tree.
  *
  * @param tree            The tree to destroy.
  */
-void avl_tree_free(AVLTree *tree);
+void rb_tree_free(RBTree *tree);
 
 /**
- * Insert a new key-value pair into an AVL tree.
+ * Insert a new key-value pair into a red-black tree.
  *
  * @param tree            The tree.
  * @param key             The key to insert.
@@ -143,7 +150,7 @@ void avl_tree_free(AVLTree *tree);
  *                        key and value, or NULL if it was not possible
  *                        to allocate the new memory.
  */
-AVLTreeNode *avl_tree_insert(AVLTree *tree, AVLTreeKey key, AVLTreeValue value);
+RBTreeNode *rb_tree_insert(RBTree *tree, RBTreeKey key, RBTreeValue value);
 
 /**
  * Remove a node from a tree.
@@ -151,7 +158,7 @@ AVLTreeNode *avl_tree_insert(AVLTree *tree, AVLTreeKey key, AVLTreeValue value);
  * @param tree            The tree.
  * @param node            The node to remove
  */
-void avl_tree_remove_node(AVLTree *tree, AVLTreeNode *node);
+void rb_tree_remove_node(RBTree *tree, RBTreeNode *node);
 
 /**
  * Remove an entry from a tree, specifying the key of the node to
@@ -163,32 +170,32 @@ void avl_tree_remove_node(AVLTree *tree, AVLTreeNode *node);
  *                        found in the tree, non-zero (true) if a node with
  *                        the specified key was removed.
  */
-int avl_tree_remove(AVLTree *tree, AVLTreeKey key);
+int rb_tree_remove(RBTree *tree, RBTreeKey key);
 
 /**
- * Search an AVL tree for a node with a particular key.  This uses
+ * Search a red-black tree for a node with a particular key.  This uses
  * the tree as a mapping.
  *
- * @param tree            The AVL tree to search.
+ * @param tree            The red-black tree to search.
  * @param key             The key to search for.
  * @return                The tree node containing the given key, or NULL
  *                        if no entry with the given key is found.
  */
-AVLTreeNode *avl_tree_lookup_node(AVLTree *tree, AVLTreeKey key);
+RBTreeNode *rb_tree_lookup_node(RBTree *tree, RBTreeKey key);
 
 /**
- * Search an AVL tree for a value corresponding to a particular key.
+ * Search a red-black tree for a value corresponding to a particular key.
  * This uses the tree as a mapping.  Note that this performs
- * identically to @ref avl_tree_lookup_node, except that the value
+ * identically to @ref rb_tree_lookup_node, except that the value
  * at the node is returned rather than the node itself.
  *
- * @param tree            The AVL tree to search.
+ * @param tree            The red-black tree to search.
  * @param key             The key to search for.
  * @return                The value associated with the given key, or
- *                        @ref AVL_TREE_NULL if no entry with the given key is
+ *                        RB_TREE_NULL if no entry with the given key is
  *                        found.
  */
-AVLTreeValue avl_tree_lookup(AVLTree *tree, AVLTreeKey key);
+RBTreeValue rb_tree_lookup(RBTree *tree, RBTreeKey key);
 
 /**
  * Find the root node of a tree.
@@ -197,7 +204,7 @@ AVLTreeValue avl_tree_lookup(AVLTree *tree, AVLTreeKey key);
  * @return                The root node of the tree, or NULL if the tree is
  *                        empty.
  */
-AVLTreeNode *avl_tree_root_node(AVLTree *tree);
+RBTreeNode *rb_tree_root_node(RBTree *tree);
 
 /**
  * Retrieve the key for a given tree node.
@@ -205,7 +212,7 @@ AVLTreeNode *avl_tree_root_node(AVLTree *tree);
  * @param node            The tree node.
  * @return                The key to the given node.
  */
-AVLTreeKey avl_tree_node_key(AVLTreeNode *node);
+RBTreeKey rb_tree_node_key(RBTreeNode *node);
 
 /**
  * Retrieve the value at a given tree node.
@@ -213,17 +220,17 @@ AVLTreeKey avl_tree_node_key(AVLTreeNode *node);
  * @param node            The tree node.
  * @return                The value at the given node.
  */
-AVLTreeValue avl_tree_node_value(AVLTreeNode *node);
+RBTreeValue rb_tree_node_value(RBTreeNode *node);
 
 /**
- * Find the child of a given tree node.
+ * Get a child of a given tree node.
  *
  * @param node            The tree node.
- * @param side            Which child node to get (left or right)
+ * @param side            The side relative to the node.
  * @return                The child of the tree node, or NULL if the
- *                        node has no child on the given side.
+ *                        node has no child on the specified side.
  */
-AVLTreeNode *avl_tree_node_child(AVLTreeNode *node, AVLTreeNodeSide side);
+RBTreeNode *rb_tree_node_child(RBTreeNode *node, RBTreeNodeSide side);
 
 /**
  * Find the parent node of a given tree node.
@@ -232,7 +239,7 @@ AVLTreeNode *avl_tree_node_child(AVLTreeNode *node, AVLTreeNodeSide side);
  * @return                The parent node of the tree node, or NULL if
  *                        this is the root node.
  */
-AVLTreeNode *avl_tree_node_parent(AVLTreeNode *node);
+RBTreeNode *rb_tree_node_parent(RBTreeNode *node);
 
 /**
  * Find the height of a subtree.
@@ -240,19 +247,19 @@ AVLTreeNode *avl_tree_node_parent(AVLTreeNode *node);
  * @param node            The root node of the subtree.
  * @return                The height of the subtree.
  */
-int avl_tree_subtree_height(AVLTreeNode *node);
+int rb_tree_subtree_height(RBTreeNode *node);
 
 /**
- * Convert the keys in an AVL tree into a C array.  This allows
+ * Convert the keys in a red-black tree into a C array.  This allows
  * the tree to be used as an ordered set.
  *
  * @param tree            The tree.
  * @return                A newly allocated C array containing all the keys
- *                        in the tree, in order. The length of the array
+ *                        in the tree, in order.  The length of the array
  *                        is equal to the number of entries in the tree
- *                        (see @ref avl_tree_num_entries).
+ *                        (see @ref rb_tree_num_entries).
  */
-AVLTreeKey *avl_tree_to_array(AVLTree *tree);
+RBTreeKey *rb_tree_to_array(RBTree *tree);
 
 /**
  * Retrieve the number of entries in the tree.
@@ -260,10 +267,10 @@ AVLTreeKey *avl_tree_to_array(AVLTree *tree);
  * @param tree            The tree.
  * @return                The number of key-value pairs stored in the tree.
  */
-unsigned int avl_tree_num_entries(AVLTree *tree);
+int rb_tree_num_entries(RBTree *tree);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* #ifndef ALGORITHM_AVLTREE_H */
+#endif /* #ifndef ALGORITHM_RB_TREE_H */
