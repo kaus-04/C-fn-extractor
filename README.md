@@ -1,2 +1,3 @@
-# C-parse
+# C-fn-extractor
+
 Parse C code and extract functions
