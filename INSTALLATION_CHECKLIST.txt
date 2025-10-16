@@ -35,7 +35,7 @@
 □ STEP 5: Download Scripts
   ├─ c_function_extractor_final.py    ✓ present
   ├─ add_wat_to_csv.py                ✓ present
-  └─ wat_parser_util.py               ✓ present (optional but recommended for debugging)
+  └─ wat_parser_util.py               ✓ present (optional but recommended for debugging.)
 
 □ STEP 6: Test on Sample Repository
   ├─ Clone a C repository
