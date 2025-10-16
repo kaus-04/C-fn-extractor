@@ -1,0 +1,44 @@
+
+================================================================================
+                    INSTALLATION & SETUP CHECKLIST
+================================================================================
+
+□ STEP 1: Install Python Dependencies
+  ├─ No external Python packages needed!
+  └─ Only uses standard library (os, re, csv, subprocess, pathlib)
+
+□ STEP 2: Install wabt (WebAssembly Binary Toolkit)
+  ├─ macOS:
+  │  └─ brew install wabt
+  ├─ Ubuntu/Debian:
+  │  └─ sudo apt update && sudo apt install wabt
+  ├─ Arch Linux:
+  │  └─ sudo pacman -S wabt
+  └─ Verify installation:
+     └─ wasm2wat --version
+
+□ STEP 3: Download wasi-sdk
+  ├─ macOS (x86_64):
+  │  ├─ wget https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-27/wasi-sdk-27.0-x86_64-macos.tar.gz
+  │  └─ tar xvf wasi-sdk-27.0-x86_64-macos.tar.gz
+  ├─ macOS (ARM64):
+  │  ├─ wget https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-27/wasi-sdk-27.0-arm64-macos.tar.gz
+  │  └─ tar xvf wasi-sdk-27.0-arm64-macos.tar.gz
+  ├─ Linux:
+  │  ├─ wget https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-27/wasi-sdk-27.0-x86_64-linux.tar.gz
+  │  └─ tar xvf wasi-sdk-27.0-x86_64-linux.tar.gz
+  └─ Place in current directory or note the path
+
+□ STEP 4: Verify Installation (for my Ubuntu setup, use cmd accordingly)
+  └─ ~/wasi-sdk-27.0-x86_64-linux/bin/clang --version
+
+□ STEP 5: Download Scripts
+  ├─ c_function_extractor_final.py    ✓ present
+  ├─ add_wat_to_csv.py                ✓ present
+  └─ wat_parser_util.py               ✓ present (optional)
+
+□ STEP 6: Test on Sample Repository
+  ├─ Clone a C repository
+  ├─ Run: python c_function_extractor_patched.py /path/to/repo test.csv
+  └─ Run: python add_wat_to_csv.py test.csv /path/to/repo
+
