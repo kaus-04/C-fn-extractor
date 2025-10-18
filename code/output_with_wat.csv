@@ -1,5 +1,6 @@
 fn_name,parameters,description,return_statement,c_implementation,corresponding_wat_implementation
-arraylist_free,ArrayList *arraylist,,null,"
+arraylist_free,ArrayList *arraylist,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"
 void arraylist_free(ArrayList *arraylist)
 {
 	/* Do not free if a NULL pointer is passed */
@@ -64,7 +65,8 @@ void arraylist_free(ArrayList *arraylist)
     local.get 13
     global.set $__stack_pointer
     return)"
-arraylist_enlarge,ArrayList *arraylist,,0 | 1,"
+arraylist_enlarge,ArrayList *arraylist,"Resizes or reallocates an internal buffer to a new size.
+Updates allocation metadata and returns an indication of success or failure.",0 | 1,"
 static int arraylist_enlarge(ArrayList *arraylist)
 {
 	ArrayListValue *data;
@@ -200,7 +202,8 @@ static int arraylist_enlarge(ArrayList *arraylist)
     global.set $__stack_pointer
     local.get 25
     return)"
-arraylist_insert,"ArrayList *arraylist, unsigned int index, ArrayListValue data",,0 | 1,"
+arraylist_insert,"ArrayList *arraylist, unsigned int index, ArrayListValue data","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",0 | 1,"
 int arraylist_insert(ArrayList *arraylist, unsigned int index,
                      ArrayListValue data)
 {
@@ -460,7 +463,8 @@ int arraylist_insert(ArrayList *arraylist, unsigned int index,
     global.set $__stack_pointer
     local.get 58
     return)"
-arraylist_append,"ArrayList *arraylist, ArrayListValue data",,"arraylist_insert(arraylist, arraylist->length, data)","
+arraylist_append,"ArrayList *arraylist, ArrayListValue data","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.","arraylist_insert(arraylist, arraylist->length, data)","
 int arraylist_append(ArrayList *arraylist, ArrayListValue data)
 {
 	return arraylist_insert(arraylist, arraylist->length, data);
@@ -509,7 +513,8 @@ int arraylist_append(ArrayList *arraylist, ArrayListValue data)
     global.set $__stack_pointer
     local.get 9
     return)"
-arraylist_prepend,"ArrayList *arraylist, ArrayListValue data",,"arraylist_insert(arraylist, 0, data)","
+arraylist_prepend,"ArrayList *arraylist, ArrayListValue data","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.","arraylist_insert(arraylist, 0, data)","
 int arraylist_prepend(ArrayList *arraylist, ArrayListValue data)
 {
 	return arraylist_insert(arraylist, 0, data);
@@ -554,7 +559,8 @@ int arraylist_prepend(ArrayList *arraylist, ArrayListValue data)
     global.set $__stack_pointer
     local.get 8
     return)"
-arraylist_remove_range,"ArrayList *arraylist, unsigned int index, unsigned int length",,null,"
+arraylist_remove_range,"ArrayList *arraylist, unsigned int index, unsigned int length","Removes a range of elements from a collection and updates its size.
+Moves remaining elements to close the gap and adjusts counters.",null,"
 void arraylist_remove_range(ArrayList *arraylist, unsigned int index,
                             unsigned int length)
 {
@@ -788,7 +794,8 @@ void arraylist_remove(ArrayList *arraylist, unsigned int index)
     local.get 9
     global.set $__stack_pointer
     return)"
-arraylist_index_of,"ArrayList *arraylist, ArrayListEqualFunc callback, ArrayListValue data",,(int) i | -1,"
+arraylist_index_of,"ArrayList *arraylist, ArrayListEqualFunc callback, ArrayListValue data","Performs an action and returns 0 on failure or 1 on success.
+Typical for functions that modify data structures and need to signal status.",(int) i | -1,"
 int arraylist_index_of(ArrayList *arraylist, ArrayListEqualFunc callback,
                        ArrayListValue data)
 {
@@ -931,7 +938,8 @@ int arraylist_index_of(ArrayList *arraylist, ArrayListEqualFunc callback,
     global.set $__stack_pointer
     local.get 28
     return)"
-arraylist_clear,ArrayList *arraylist,,null,"
+arraylist_clear,ArrayList *arraylist,"Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",null,"
 void arraylist_clear(ArrayList *arraylist)
 {
 	/* To clear the list, simply set the length to zero */
@@ -1466,7 +1474,8 @@ static void arraylist_sort_internal(ArrayListValue *list_data,
   (export ""__heap_end"" (global 7))
   (export ""__memory_base"" (global 8))
   (export ""__table_base"" (global 9)))"
-arraylist_sort,"ArrayList *arraylist, ArrayListCompareFunc compare_func",,null,"
+arraylist_sort,"ArrayList *arraylist, ArrayListCompareFunc compare_func","Sorts a collection of elements using the provided comparison function.
+Performs recursive or iterative ordering and updates the container in-place.",null,"
 void arraylist_sort(ArrayList *arraylist, ArrayListCompareFunc compare_func)
 {
 	/* Perform the recursive sort */
@@ -1518,7 +1527,8 @@ void arraylist_sort(ArrayList *arraylist, ArrayListCompareFunc compare_func)
     local.get 11
     global.set $__stack_pointer
     return)"
-avl_tree_update_height,AVLTreeNode *node,,null,"static void avl_tree_update_height(AVLTreeNode *node)
+avl_tree_update_height,AVLTreeNode *node,"Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",null,"static void avl_tree_update_height(AVLTreeNode *node)
 {
 	AVLTreeNode *left_subtree;
 	AVLTreeNode *right_subtree;
@@ -1648,7 +1658,8 @@ avl_tree_update_height,AVLTreeNode *node,,null,"static void avl_tree_update_heig
     local.get 26
     global.set $__stack_pointer
     return)"
-avl_tree_node_replace,"AVLTree *tree, AVLTreeNode *node1, AVLTreeNode *node2",,new_root | node,"static void avl_tree_node_replace(AVLTree *tree, AVLTreeNode *node1,
+avl_tree_node_replace,"AVLTree *tree, AVLTreeNode *node1, AVLTreeNode *node2","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",new_root | node,"static void avl_tree_node_replace(AVLTree *tree, AVLTreeNode *node1,
                                   AVLTreeNode *node2)
 {
 	int side;
@@ -1941,7 +1952,8 @@ static void avl_tree_balance_to_root(AVLTree *tree, AVLTreeNode *node)
     local.get 34
     global.set $__stack_pointer
     return)"
-avl_tree_balance_to_root,"AVLTree *tree, AVLTreeNode *node",,"NULL | new_node | result | 0 | 1 | this node */
+avl_tree_balance_to_root,"AVLTree *tree, AVLTreeNode *node","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.","NULL | new_node | result | 0 | 1 | this node */
 			return node | avl_tree_null_value | node->value | tree->root_node | node->key | node->children[side] | node->parent | tree->num_nodes | array","static void avl_tree_balance_to_root(AVLTree *tree, AVLTreeNode *node)
 {
 	AVLTreeNode *rover;
@@ -2323,7 +2335,8 @@ AVLTreeKey *avl_tree_to_array(AVLTree *tree)
     local.get 17
     global.set $__stack_pointer
     return)"
-avl_tree_remove_node,"AVLTree *tree, AVLTreeNode *node",,"0 | 1 | this node */
+avl_tree_remove_node,"AVLTree *tree, AVLTreeNode *node","Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.","0 | 1 | this node */
 			return node | NULL | avl_tree_null_value | node->value | tree->root_node | node->key | node->children[side] | node->parent | tree->num_nodes | array","void avl_tree_remove_node(AVLTree *tree, AVLTreeNode *node)
 {
 	AVLTreeNode *swap_node;
@@ -2834,7 +2847,8 @@ AVLTreeKey *avl_tree_to_array(AVLTree *tree)
     local.get 78
     global.set $__stack_pointer
     return)"
-avl_tree_remove,"AVLTree *tree, AVLTreeKey key",,0 | 1,"int avl_tree_remove(AVLTree *tree, AVLTreeKey key)
+avl_tree_remove,"AVLTree *tree, AVLTreeKey key","Removes an element or a range of elements from a collection.
+Shifts remaining elements and decrements the length counter.",0 | 1,"int avl_tree_remove(AVLTree *tree, AVLTreeKey key)
 {
 	AVLTreeNode *node;
 
@@ -2936,7 +2950,8 @@ avl_tree_remove,"AVLTree *tree, AVLTreeKey key",,0 | 1,"int avl_tree_remove(AVLT
     global.set $__stack_pointer
     local.get 17
     return)"
-avl_tree_to_array_add_subtree,"AVLTreeNode *subtree, AVLTreeKey *array, int *index",,null,"
+avl_tree_to_array_add_subtree,"AVLTreeNode *subtree, AVLTreeKey *array, int *index","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",null,"
 static void avl_tree_to_array_add_subtree(AVLTreeNode *subtree,
                                           AVLTreeKey *array, int *index)
 {
@@ -3185,7 +3200,8 @@ static int binary_heap_cmp(BinaryHeap *heap, BinaryHeapValue data1,
     global.set $__stack_pointer
     local.get 20
     return)"
-binary_heap_free,BinaryHeap *heap,,null,"
+binary_heap_free,BinaryHeap *heap,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"
 void binary_heap_free(BinaryHeap *heap)
 {
 	free(heap->values);
@@ -3227,7 +3243,8 @@ void binary_heap_free(BinaryHeap *heap)
     local.get 8
     global.set $__stack_pointer
     return)"
-binary_heap_insert,"BinaryHeap *heap, BinaryHeapValue value",,0 | 1,"
+binary_heap_insert,"BinaryHeap *heap, BinaryHeapValue value","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",0 | 1,"
 int binary_heap_insert(BinaryHeap *heap, BinaryHeapValue value)
 {
 	BinaryHeapValue *new_values;
@@ -3618,7 +3635,8 @@ int binary_heap_insert(BinaryHeap *heap, BinaryHeapValue value)
     global.set $__stack_pointer
     local.get 84
     return)"
-binomial_heap_merge_undo,"BinomialTree **new_roots, unsigned int count",,null,"static void binomial_heap_merge_undo(BinomialTree **new_roots,
+binomial_heap_merge_undo,"BinomialTree **new_roots, unsigned int count","Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"static void binomial_heap_merge_undo(BinomialTree **new_roots,
                                      unsigned int count)
 {
 	unsigned int i;
@@ -3722,7 +3740,8 @@ binomial_heap_merge_undo,"BinomialTree **new_roots, unsigned int count",,null,"s
     local.get 22
     global.set $__stack_pointer
     return)"
-binomial_heap_merge,"BinomialHeap *heap, BinomialHeap *other",,0 | 1,"static int binomial_heap_merge(BinomialHeap *heap, BinomialHeap *other)
+binomial_heap_merge,"BinomialHeap *heap, BinomialHeap *other","Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",0 | 1,"static int binomial_heap_merge(BinomialHeap *heap, BinomialHeap *other)
 {
 	BinomialTree **new_roots;
 	unsigned int new_roots_length;
@@ -4683,7 +4702,8 @@ binomial_heap_merge,"BinomialHeap *heap, BinomialHeap *other",,0 | 1,"static int
     global.set $__stack_pointer
     local.get 214
     return)"
-binomial_heap_free,BinomialHeap *heap,,null,"
+binomial_heap_free,BinomialHeap *heap,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"
 void binomial_heap_free(BinomialHeap *heap)
 {
 	unsigned int i;
@@ -4802,7 +4822,8 @@ void binomial_heap_free(BinomialHeap *heap)
     local.get 25
     global.set $__stack_pointer
     return)"
-binomial_heap_insert,"BinomialHeap *heap, BinomialHeapValue value",,0 | result,"
+binomial_heap_insert,"BinomialHeap *heap, BinomialHeapValue value","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",0 | result,"
 int binomial_heap_insert(BinomialHeap *heap, BinomialHeapValue value)
 {
 	BinomialHeap fake_heap;
@@ -5033,7 +5054,8 @@ int binomial_heap_insert(BinomialHeap *heap, BinomialHeapValue value)
     global.set $__stack_pointer
     local.get 42
     return)"
-bloom_filter_free,BloomFilter *bloomfilter,,null,"
+bloom_filter_free,BloomFilter *bloomfilter,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"
 void bloom_filter_free(BloomFilter *bloomfilter)
 {
 	free(bloomfilter->table);
@@ -5075,7 +5097,8 @@ void bloom_filter_free(BloomFilter *bloomfilter)
     local.get 8
     global.set $__stack_pointer
     return)"
-bloom_filter_insert,"BloomFilter *bloomfilter, BloomFilterValue value",,null,"
+bloom_filter_insert,"BloomFilter *bloomfilter, BloomFilterValue value","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",null,"
 void bloom_filter_insert(BloomFilter *bloomfilter, BloomFilterValue value)
 {
 	unsigned int hash;
@@ -5296,7 +5319,8 @@ void bloom_filter_insert(BloomFilter *bloomfilter, BloomFilterValue value)
     local.get 50
     global.set $__stack_pointer
     return)"
-bloom_filter_query,"BloomFilter *bloomfilter, BloomFilterValue value",,0 | 1,"
+bloom_filter_query,"BloomFilter *bloomfilter, BloomFilterValue value","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",0 | 1,"
 int bloom_filter_query(BloomFilter *bloomfilter, BloomFilterValue value)
 {
 	unsigned int hash;
@@ -5753,7 +5777,8 @@ int int_equal(void *vlocation1, void *vlocation2)
     local.set 13
     local.get 13
     return)"
-int_compare,"void *vlocation1, void *vlocation2",,-1 | 1 | 0,"
+int_compare,"void *vlocation1, void *vlocation2","Compares two values using the provided comparison callback.
+Returns a negative, zero, or positive result to indicate ordering.",-1 | 1 | 0,"
 int int_compare(void *vlocation1, void *vlocation2)
 {
 	int *location1;
@@ -5816,7 +5841,8 @@ int pointer_equal(void *location1, void *location2)
     local.set 9
     local.get 9
     return)"
-pointer_compare,"void *location1, void *location2",,-1 | 1 | 0,"
+pointer_compare,"void *location1, void *location2","Compares two values using the provided comparison callback.
+Returns a negative, zero, or positive result to indicate ordering.",-1 | 1 | 0,"
 int pointer_compare(void *location1, void *location2)
 {
 	if (location1 < location2) {
@@ -5932,7 +5958,8 @@ int pointer_compare(void *location1, void *location2)
   (export ""__heap_end"" (global 7))
   (export ""__memory_base"" (global 8))
   (export ""__table_base"" (global 9)))"
-string_nocase_equal,"void *string1, void *string2",,"string_nocase_compare((char *) string1, (char *) string2) == 0","int string_nocase_equal(void *string1, void *string2)
+string_nocase_equal,"void *string1, void *string2","Compares two values using the provided comparison callback.
+Returns a negative, zero, or positive result to indicate ordering.","string_nocase_compare((char *) string1, (char *) string2) == 0","int string_nocase_equal(void *string1, void *string2)
 {
 	return string_nocase_compare((char *) string1, (char *) string2) == 0;
 }","(func $string_nocase_equal (type 0) (param i32 i32) (result i32)
@@ -5985,7 +6012,8 @@ string_nocase_equal,"void *string1, void *string2",,"string_nocase_compare((char
     global.set $__stack_pointer
     local.get 11
     return)"
-string_nocase_compare,"void *string1, void *string2",,-1 | 1 | 0,"int string_nocase_compare(void *string1, void *string2)
+string_nocase_compare,"void *string1, void *string2","Compares two values using the provided comparison callback.
+Returns a negative, zero, or positive result to indicate ordering.",-1 | 1 | 0,"int string_nocase_compare(void *string1, void *string2)
 {
 	char *p1;
 	char *p2;
@@ -6233,7 +6261,8 @@ string_nocase_compare,"void *string1, void *string2",,-1 | 1 | 0,"int string_noc
   (export ""__heap_end"" (global 7))
   (export ""__memory_base"" (global 8))
   (export ""__table_base"" (global 9)))"
-hash_table_allocate_table,HashTable *hash_table,,hash_table->table != NULL,"static int hash_table_allocate_table(HashTable *hash_table)
+hash_table_allocate_table,HashTable *hash_table,"Performs an action and returns 0 on failure or 1 on success.
+Typical for functions that modify data structures and need to signal status.",hash_table->table != NULL,"static int hash_table_allocate_table(HashTable *hash_table)
 {
 	unsigned int new_table_size;
 
@@ -6389,7 +6418,8 @@ hash_table_allocate_table,HashTable *hash_table,,hash_table->table != NULL,"stat
     global.set $__stack_pointer
     local.get 33
     return)"
-hash_table_free_entry,"HashTable *hash_table, HashTableEntry *entry",,null,"static void hash_table_free_entry(HashTable *hash_table, HashTableEntry *entry)
+hash_table_free_entry,"HashTable *hash_table, HashTableEntry *entry","Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"static void hash_table_free_entry(HashTable *hash_table, HashTableEntry *entry)
 {
 	HashTablePair *pair;
 
@@ -6522,7 +6552,8 @@ hash_table_free_entry,"HashTable *hash_table, HashTableEntry *entry",,null,"stat
     local.get 28
     global.set $__stack_pointer
     return)"
-hash_table_free,HashTable *hash_table,,null,"
+hash_table_free,HashTable *hash_table,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"
 void hash_table_free(HashTable *hash_table)
 {
 	HashTableEntry *rover;
@@ -6742,7 +6773,8 @@ void hash_table_register_free_functions(HashTable *hash_table,
     local.get 8
     i32.store offset=20
     return)"
-hash_table_enlarge,HashTable *hash_table,,0 | 1,"
+hash_table_enlarge,HashTable *hash_table,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",0 | 1,"
 static int hash_table_enlarge(HashTable *hash_table)
 {
 	HashTableEntry **old_table;
@@ -7113,7 +7145,8 @@ static int hash_table_enlarge(HashTable *hash_table)
     global.set $__stack_pointer
     local.get 72
     return)"
-hash_table_insert,"HashTable *hash_table, HashTableKey key, HashTableValue value",,0 | 1 | pair->value | hash_table_null_value | result | hash_table->entries | iterator->next_entry != NULL | pair,"
+hash_table_insert,"HashTable *hash_table, HashTableKey key, HashTableValue value","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",0 | 1 | pair->value | hash_table_null_value | result | hash_table->entries | iterator->next_entry != NULL | pair,"
 int hash_table_insert(HashTable *hash_table, HashTableKey key,
                       HashTableValue value)
 {
@@ -8035,7 +8068,8 @@ int hash_table_remove(HashTable *hash_table, HashTableKey key)
     global.set $__stack_pointer
     local.get 49
     return)"
-hash_table_iterate,"HashTable *hash_table, HashTableIterator *iterator",,null,"
+hash_table_iterate,"HashTable *hash_table, HashTableIterator *iterator","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",null,"
 void hash_table_iterate(HashTable *hash_table, HashTableIterator *iterator)
 {
 	unsigned int chain;
@@ -8209,7 +8243,8 @@ void hash_table_iterate(HashTable *hash_table, HashTableIterator *iterator)
       end
     end
     return)"
-hash_table_iter_has_more,HashTableIterator *iterator,,iterator->next_entry != NULL,"
+hash_table_iter_has_more,HashTableIterator *iterator,"Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",iterator->next_entry != NULL,"
 int hash_table_iter_has_more(HashTableIterator *iterator)
 {
 	return iterator->next_entry != NULL;
@@ -8337,7 +8372,8 @@ void list_free(ListEntry *list)
     local.get 15
     global.set $__stack_pointer
     return)"
-list_set_data,"ListEntry *listentry, ListValue value",,null,"
+list_set_data,"ListEntry *listentry, ListValue value","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",null,"
 void list_set_data(ListEntry *listentry, ListValue value)
 {
 	if (listentry != NULL) {
@@ -8389,7 +8425,8 @@ void list_set_data(ListEntry *listentry, ListValue value)
       i32.store
     end
     return)"
-list_remove_entry,"ListEntry **list, ListEntry *entry",,0 | 1 | entries_removed | NULL | *list | pivot | more_list_end | rover | *iter->prev_next != NULL | iter->current->next != NULL | list_null_value | iter->current->data,"
+list_remove_entry,"ListEntry **list, ListEntry *entry","Sorts a collection of elements using the provided comparison function.
+Performs recursive or iterative ordering and updates the container in-place.",0 | 1 | entries_removed | NULL | *list | pivot | more_list_end | rover | *iter->prev_next != NULL | iter->current->next != NULL | list_null_value | iter->current->data,"
 int list_remove_entry(ListEntry **list, ListEntry *entry)
 {
 	/* If the list is empty, or entry is NULL, always fail */
@@ -8898,7 +8935,8 @@ void list_iter_remove(ListIterator *iter)
     global.set $__stack_pointer
     local.get 56
     return)"
-list_sort,"ListEntry **list, ListCompareFunc compare_func",,null,"
+list_sort,"ListEntry **list, ListCompareFunc compare_func","Sorts a collection of elements using the provided comparison function.
+Performs recursive or iterative ordering and updates the container in-place.",null,"
 void list_sort(ListEntry **list, ListCompareFunc compare_func)
 {
 	list_sort_internal(list, compare_func);
@@ -9119,7 +9157,8 @@ int list_iter_has_more(ListIterator *iter)
     local.set 32
     local.get 32
     return)"
-list_iter_remove,ListIterator *iter,,null,"
+list_iter_remove,ListIterator *iter,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"
 void list_iter_remove(ListIterator *iter)
 {
 	if (iter->current == NULL || iter->current != *iter->prev_next) {
@@ -9342,7 +9381,8 @@ void list_iter_remove(ListIterator *iter)
   (export ""__heap_end"" (global 7))
   (export ""__memory_base"" (global 8))
   (export ""__table_base"" (global 9)))"
-queue_free,Queue *queue,,null,"
+queue_free,Queue *queue,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"
 void queue_free(Queue *queue)
 {
 	/* Empty the queue */
@@ -9620,7 +9660,8 @@ int queue_push_head(Queue *queue, QueueValue data)
     global.set $__stack_pointer
     local.get 36
     return)"
-queue_push_tail,"Queue *queue, QueueValue data",,0 | 1,"
+queue_push_tail,"Queue *queue, QueueValue data","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",0 | 1,"
 int queue_push_tail(Queue *queue, QueueValue data)
 {
 	QueueEntry *new_entry;
@@ -9821,7 +9862,8 @@ int queue_push_tail(Queue *queue, QueueValue data)
     global.set $__stack_pointer
     local.get 36
     return)"
-queue_is_empty,Queue *queue,,queue->head == NULL,"
+queue_is_empty,Queue *queue,"Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",queue->head == NULL,"
 int queue_is_empty(Queue *queue)
 {
 	return queue->head == NULL;
@@ -9858,7 +9900,8 @@ int queue_is_empty(Queue *queue)
     local.set 9
     local.get 9
     return)"
-rb_tree_node_replace,"RBTree *tree, RBTreeNode *node1, RBTreeNode *node2",,new_root | NULL | new_tree | node | rb_tree_null_value | node->value | 0 | 1 | tree->root_node | node->key | node->children[side] | node->parent | tree->num_nodes,"static void rb_tree_node_replace(RBTree *tree, RBTreeNode *node1,
+rb_tree_node_replace,"RBTree *tree, RBTreeNode *node1, RBTreeNode *node2","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",new_root | NULL | new_tree | node | rb_tree_null_value | node->value | 0 | 1 | tree->root_node | node->key | node->children[side] | node->parent | tree->num_nodes,"static void rb_tree_node_replace(RBTree *tree, RBTreeNode *node1,
                                  RBTreeNode *node2)
 {
 	int side;
@@ -10428,7 +10471,8 @@ int rb_tree_num_entries(RBTree *tree)
   (export ""__heap_end"" (global 7))
   (export ""__memory_base"" (global 8))
   (export ""__table_base"" (global 9)))"
-rb_tree_insert_case1,"RBTree *tree, RBTreeNode *node",,null,"static void rb_tree_insert_case1(RBTree *tree, RBTreeNode *node)
+rb_tree_insert_case1,"RBTree *tree, RBTreeNode *node","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",null,"static void rb_tree_insert_case1(RBTree *tree, RBTreeNode *node)
 {
 	if (node->parent == NULL) {
 
@@ -10510,7 +10554,8 @@ rb_tree_insert_case1,"RBTree *tree, RBTreeNode *node",,null,"static void rb_tree
     local.get 16
     global.set $__stack_pointer
     return)"
-rb_tree_insert_case2,"RBTree *tree, RBTreeNode *node",,null,"static void rb_tree_insert_case2(RBTree *tree, RBTreeNode *node)
+rb_tree_insert_case2,"RBTree *tree, RBTreeNode *node","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",null,"static void rb_tree_insert_case2(RBTree *tree, RBTreeNode *node)
 {
 	/* Note that if this function is being called, we already know
 	 * the node has a parent, as it is not the root node. */
@@ -10727,7 +10772,8 @@ of every red node are black.",null,"static void rb_tree_insert_case3(RBTree *tre
     local.get 29
     global.set $__stack_pointer
     return)"
-rb_tree_insert_case4,"RBTree *tree, RBTreeNode *node",,null,"void rb_tree_insert_case4(RBTree *tree, RBTreeNode *node)
+rb_tree_insert_case4,"RBTree *tree, RBTreeNode *node","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",null,"void rb_tree_insert_case4(RBTree *tree, RBTreeNode *node)
 {
 	RBTreeNode *next_node;
 	RBTreeNodeSide side;
@@ -10866,7 +10912,8 @@ rb_tree_insert_case4,"RBTree *tree, RBTreeNode *node",,null,"void rb_tree_insert
     local.get 26
     global.set $__stack_pointer
     return)"
-rb_tree_insert_case5,"RBTree *tree, RBTreeNode *node",,null,"void rb_tree_insert_case5(RBTree *tree, RBTreeNode *node)
+rb_tree_insert_case5,"RBTree *tree, RBTreeNode *node","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",null,"void rb_tree_insert_case5(RBTree *tree, RBTreeNode *node)
 {
 	RBTreeNode *parent;
 	RBTreeNode *grandparent;
@@ -10975,7 +11022,8 @@ rb_tree_insert_case5,"RBTree *tree, RBTreeNode *node",,null,"void rb_tree_insert
     local.get 21
     global.set $__stack_pointer
     return)"
-rb_tree_remove_node,"RBTree *tree, RBTreeNode *node",,null,"
+rb_tree_remove_node,"RBTree *tree, RBTreeNode *node","Removes an element or a range of elements from a collection.
+Shifts remaining elements and decrements the length counter.",null,"
 void rb_tree_remove_node(RBTree *tree, RBTreeNode *node)
 { /* TODO */
 }","(func $rb_tree_remove_node (type 5) (param i32 i32)
@@ -11270,7 +11318,8 @@ static int set_allocate_table(Set *set)
     global.set $__stack_pointer
     local.get 33
     return)"
-set_free_entry,"Set *set, SetEntry *entry",,null,"
+set_free_entry,"Set *set, SetEntry *entry","Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"
 static void set_free_entry(Set *set, SetEntry *entry)
 {
 	/* If there is a free function registered, call it to free the
@@ -11351,7 +11400,8 @@ static void set_free_entry(Set *set, SetEntry *entry)
     local.get 17
     global.set $__stack_pointer
     return)"
-set_free,Set *set,,null,"
+set_free,Set *set,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"
 void set_free(Set *set)
 {
 	SetEntry *rover;
@@ -11561,7 +11611,8 @@ void set_register_free_function(Set *set, SetFreeFunc free_func)
     local.get 5
     i32.store offset=24
     return)"
-set_enlarge,Set *set,,0 | 1,"
+set_enlarge,Set *set,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",0 | 1,"
 static int set_enlarge(Set *set)
 {
 	SetEntry *rover;
@@ -12718,7 +12769,8 @@ int set_query(Set *set, SetValue data)
     global.set $__stack_pointer
     local.get 34
     return)"
-set_iterate,"Set *set, SetIterator *iter",,null,"
+set_iterate,"Set *set, SetIterator *iter","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",null,"
 void set_iterate(Set *set, SetIterator *iter)
 {
 	unsigned int chain;
@@ -12892,7 +12944,8 @@ void set_iterate(Set *set, SetIterator *iter)
     local.get 38
     i32.store offset=8
     return)"
-set_iter_has_more,SetIterator *iterator,,iterator->next_entry != NULL,"
+set_iter_has_more,SetIterator *iterator,"Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",iterator->next_entry != NULL,"
 int set_iter_has_more(SetIterator *iterator)
 {
 	return iterator->next_entry != NULL;
@@ -13020,7 +13073,8 @@ void slist_free(SListEntry *list)
     local.get 15
     global.set $__stack_pointer
     return)"
-slist_set_data,"SListEntry *listentry, SListValue data",,null,"
+slist_set_data,"SListEntry *listentry, SListValue data","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",null,"
 void slist_set_data(SListEntry *listentry, SListValue data)
 {
 	if (listentry != NULL) {
@@ -13072,7 +13126,8 @@ void slist_set_data(SListEntry *listentry, SListValue data)
       i32.store
     end
     return)"
-slist_remove_entry,"SListEntry **list, SListEntry *entry",,0 | 1,"
+slist_remove_entry,"SListEntry **list, SListEntry *entry","Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",0 | 1,"
 int slist_remove_entry(SListEntry **list, SListEntry *entry)
 {
 	SListEntry *rover;
@@ -13356,7 +13411,8 @@ int slist_remove_entry(SListEntry **list, SListEntry *entry)
     global.set $__stack_pointer
     local.get 55
     return)"
-slist_sort,"SListEntry **list, SListCompareFunc compare_func",,null,"
+slist_sort,"SListEntry **list, SListCompareFunc compare_func","Sorts a collection of elements using the provided comparison function.
+Performs recursive or iterative ordering and updates the container in-place.",null,"
 void slist_sort(SListEntry **list, SListCompareFunc compare_func)
 {
 	slist_sort_internal(list, compare_func);
@@ -13577,7 +13633,8 @@ int slist_iter_has_more(SListIterator *iter)
     local.set 32
     local.get 32
     return)"
-slist_iter_remove,SListIterator *iter,,null,"
+slist_iter_remove,SListIterator *iter,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"
 void slist_iter_remove(SListIterator *iter)
 {
 	if (iter->current == NULL || iter->current != *iter->prev_next) {
@@ -13747,7 +13804,8 @@ void slist_iter_remove(SListIterator *iter)
   (export ""__heap_end"" (global 7))
   (export ""__memory_base"" (global 8))
   (export ""__table_base"" (global 9)))"
-sortedarray_index_of,"SortedArray *sortedarray, SortedArrayValue data",,-1 | (int) index,"int sortedarray_index_of(SortedArray *sortedarray, SortedArrayValue data)
+sortedarray_index_of,"SortedArray *sortedarray, SortedArrayValue data","Sorts a collection of elements using the provided comparison function.
+Performs recursive or iterative ordering and updates the container in-place.",-1 | (int) index,"int sortedarray_index_of(SortedArray *sortedarray, SortedArrayValue data)
 {
 	unsigned int left, right, index;
 	int order;
@@ -14052,7 +14110,8 @@ sortedarray_index_of,"SortedArray *sortedarray, SortedArrayValue data",,-1 | (in
     global.set $__stack_pointer
     local.get 61
     return)"
-sortedarray_clear,SortedArray *sortedarray,,null,"
+sortedarray_clear,SortedArray *sortedarray,"Sorts a collection of elements using the provided comparison function.
+Performs recursive or iterative ordering and updates the container in-place.",null,"
 void sortedarray_clear(SortedArray *sortedarray)
 {
 	/* set length to 0 */
@@ -14112,7 +14171,8 @@ void sortedarray_clear(SortedArray *sortedarray)
   (export ""__heap_end"" (global 7))
   (export ""__memory_base"" (global 8))
   (export ""__table_base"" (global 9)))"
-trie_insert_rollback,"Trie *trie, unsigned char *key",,null,"static void trie_insert_rollback(Trie *trie, unsigned char *key)
+trie_insert_rollback,"Trie *trie, unsigned char *key","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",null,"static void trie_insert_rollback(Trie *trie, unsigned char *key)
 {
 	TrieNode *node;
 	TrieNode **prev_ptr;
@@ -14354,7 +14414,8 @@ trie_insert_rollback,"Trie *trie, unsigned char *key",,null,"static void trie_in
     local.get 47
     global.set $__stack_pointer
     return)"
-trie_value_is_null,TrieValue *v,,"!memcmp(v, &trie_null_value, sizeof(TrieValue))","
+trie_value_is_null,TrieValue *v,"Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.","!memcmp(v, &trie_null_value, sizeof(TrieValue))","
 static int trie_value_is_null(TrieValue *v)
 {
 	return !memcmp(v, &trie_null_value, sizeof(TrieValue));
@@ -14403,7 +14464,8 @@ static int trie_value_is_null(TrieValue *v)
     local.set 13
     local.get 13
     return)"
-trie_insert,"Trie *trie, char *key, TrieValue value",,"0 | success. */
+trie_insert,"Trie *trie, char *key, TrieValue value","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.","0 | success. */
 	if (node != NULL && !trie_value_is_null(&node->data)) {
 		node->data = value | 1","
 int trie_insert(Trie *trie, char *key, TrieValue value)
@@ -14865,7 +14927,8 @@ int trie_insert_binary(Trie *trie, unsigned char *key, int key_length,
     global.set $__stack_pointer
     local.get 70
     return)"
-trie_insert_binary,"Trie *trie, unsigned char *key, int key_length, TrieValue value",,"0 | success. */
+trie_insert_binary,"Trie *trie, unsigned char *key, int key_length, TrieValue value","Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.","0 | success. */
 	if (node != NULL && !trie_value_is_null(&node->data)) {
 		node->data = value | 1","
 int trie_insert_binary(Trie *trie, unsigned char *key, int key_length,
@@ -15342,7 +15405,8 @@ int trie_remove_binary(Trie *trie, unsigned char *key, int key_length)
     global.set $__stack_pointer
     local.get 78
     return)"
-trie_remove_binary,"Trie *trie, unsigned char *key, int key_length",,0 | 1,"
+trie_remove_binary,"Trie *trie, unsigned char *key, int key_length","Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",0 | 1,"
 int trie_remove_binary(Trie *trie, unsigned char *key, int key_length)
 {
 	TrieNode *node;
@@ -16232,7 +16296,8 @@ unsigned int trie_num_entries(Trie *trie)
     global.set $__stack_pointer
     local.get 71
     return)"
-alloc_test_overwrite,"void *ptr, size_t length, unsigned int pattern",,null,"static void alloc_test_overwrite(void *ptr, size_t length, unsigned int pattern)
+alloc_test_overwrite,"void *ptr, size_t length, unsigned int pattern","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",null,"static void alloc_test_overwrite(void *ptr, size_t length, unsigned int pattern)
 {
 	unsigned char *byte_ptr;
 	int pattern_seq;
@@ -16366,7 +16431,8 @@ alloc_test_overwrite,"void *ptr, size_t length, unsigned int pattern",,null,"sta
       end
     end
     return)"
-alloc_test_malloc,size_t bytes,,"NULL | the block itself */
+alloc_test_malloc,size_t bytes,"Allocates heap memory for a new data structure or buffer.
+Returns NULL on allocation failure; the caller must handle errors.","NULL | the block itself */
 	return header + 1","void *alloc_test_malloc(size_t bytes)
 {
 	BlockHeader *header;
@@ -16597,7 +16663,8 @@ alloc_test_malloc,size_t bytes,,"NULL | the block itself */
     global.set $__stack_pointer
     local.get 46
     return)"
-alloc_test_free,void *ptr,,null,"void alloc_test_free(void *ptr)
+alloc_test_free,void *ptr,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"void alloc_test_free(void *ptr)
 {
 	BlockHeader *header;
 	size_t block_size;
@@ -16965,7 +17032,8 @@ void *alloc_test_realloc(void *ptr, size_t bytes)
     global.set $__stack_pointer
     local.get 34
     return)"
-alloc_test_calloc,"size_t nmemb, size_t bytes",,NULL | result,"
+alloc_test_calloc,"size_t nmemb, size_t bytes","Allocates heap memory for a new data structure or buffer.
+Returns NULL on allocation failure; the caller must handle errors.",NULL | result,"
 void *alloc_test_calloc(size_t nmemb, size_t bytes)
 {
 	void *result;
@@ -17088,7 +17156,8 @@ void *alloc_test_calloc(size_t nmemb, size_t bytes)
     global.set $__stack_pointer
     local.get 21
     return)"
-alloc_test_strdup,const char *string,,NULL | result,"
+alloc_test_strdup,const char *string,"Allocates heap memory for a new data structure or buffer.
+Returns NULL on allocation failure; the caller must handle errors.",NULL | result,"
 char *alloc_test_strdup(const char *string)
 {
 	char *result;
@@ -17192,14 +17261,16 @@ char *alloc_test_strdup(const char *string)
     global.set $__stack_pointer
     local.get 18
     return)"
-alloc_test_set_limit,signed int alloc_count,,null,"
+alloc_test_set_limit,signed int alloc_count,"Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",null,"
 void alloc_test_set_limit(signed int alloc_count)
 {
 	allocation_limit = alloc_count;
 }","(func $alloc_test_set_limit (type 1)))
   (import ""env"" ""alloc_test_get_allocated"" (func $alloc_test_get_allocated (type 2)))
   (import ""env"" ""__assert_fail"" (func $__assert_fail (type 3)))"
-alloc_test_get_allocated,,,allocated_bytes,"
+alloc_test_get_allocated,,"Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",allocated_bytes,"
 size_t alloc_test_get_allocated(void)
 {
 	return allocated_bytes;
@@ -17245,7 +17316,8 @@ size_t alloc_test_get_allocated(void)
   (export ""__table_base"" (global 10))
   (data $.rodata (i32.const 1024) ""alloc_test_get_header\00allocated_bytes >= block_size\00alloc_test_free\00../files/src/alloc-testing.c\00result->magic_number == ALLOC_TEST_MAGIC\00"")
   (data $.data (i32.const 1164) ""\ff\ff\ff\ff""))"
-run_test,UnitTestFunction test,,null,"static void run_test(UnitTestFunction test)
+run_test,UnitTestFunction test,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"static void run_test(UnitTestFunction test)
 {
 	/* Turn off any allocation limits that may have been set
 	 * by a previous test. */
@@ -17356,7 +17428,8 @@ void run_tests(UnitTestFunction *tests)
   (import ""env"" ""alloc_test_calloc"" (func $alloc_test_calloc (type 4)))
   (import ""env"" ""alloc_test_strdup"" (func $alloc_test_strdup (type 3)))
   (import ""env"" ""strcmp"" (func $strcmp (type 4)))"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 
@@ -17436,7 +17509,8 @@ main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
   (elem (;0;) (i32.const 1) func $int_compare $test_sortedarray_new_free $test_sortedarray_insert $test_sortedarray_get $test_sortedarray_remove $test_sortedarray_index_of $test_sortedarray_clear)
   (data $.rodata (i32.const 1024) ""test_sortedarray_insert\00test_sortedarray_get\00test_sortedarray_clear\00test_sortedarray_index_of\00test_sortedarray_remove\00test_sortedarray_new_free\00check_sorted\00../files/src/test-sortedarray.c\00*got == sorted_test_values[check_idx]\00*got == sorted_test_values[i]\00sorted_test_values[got_idx] == sorted_test_values[i]\00sortedarray_length(sa) == NUM_TEST_VALUES - 1 - REMOVE_IDX_2_LEN - REMOVE_IDX_3_REAL_LEN\00sa == NULL\00sortedarray_new(0, NULL) == NULL\00sortedarray_get(sa, 999999) == NULL\00sortedarray_get(NULL, 0) == NULL\00sortedarray_get(sa, sortedarray_length(sa)) == NULL\00got != NULL\00sa != NULL\00sortedarray_index_of(sa, &test_index) == -1\00sortedarray_index_of(NULL, NULL) == -1\00sortedarray_length(sa) == 0\00sortedarray_insert(NULL, NULL) == 0\00sortedarray_remove(sa, 999999) == 0\00sortedarray_remove_range(sa, 999999, 44) == 0\00sortedarray_remove_range(sa, sortedarray_length(sa), 3) == 0\00sortedarray_remove(NULL, 0) == 0\00sortedarray_remove(sa, sortedarray_length(sa)) == 0\00int_compare(sortedarray_get(sa, i - 1), sortedarray_get(sa, i)) <= 0\00sortedarray_remove_range(sa, REMOVE_IDX_3, REMOVE_IDX_3_LEN) != 0\00sortedarray_remove_range(sa, REMOVE_IDX_2, REMOVE_IDX_2_LEN) != 0\00sortedarray_remove(sa, REMOVE_IDX_1) != 0\00"")
   (data $.data (i32.const 2240) ""|\c0\01\00lx\04\00\94;\00\00\bf\d9\04\00\1e\1d\0d\00{d\0e\00i\a6\02\00\ec\c7\06\00\c2k\04\00\e7\ed\00\00\c7\c7\0a\00\8fL\06\00\d0\ca\ff\ffA\15\07\00$\0f\0e\00zE\06\00\c7\d0\01\00\88\de\0d\00:\0b\0d\00\1f}\03\00F\ac\02\00\ac\e7\0e\00\81\b3\0e\00\a4\99\00\00\85\cf\0b\00\f0\fb\08\00\d7[\00\00\8c\8f\05\00\01v\0c\00\81\03\01\00\a3\e9\0d\00\ac\cf\0b\00\f4\10\00\002J\ff\ffoJ\0b\00\95\ed\05\00\ed\d8\0a\00\efy\0c\00\97\e2\08\00c+\0f\00\f2N\0b\00\f7h\0c\00O\dc\02\00a>\02\00\a5<\0e\00\a5<\0e\00\a5<\0e\00\e1}\0b\004*\07\00\8fw\0d\00\ee\8a\0e\00>\8a\02\00\f7\9b\ff\ff\8e\b3\0b\008\0b\03\00\0b\1c\04\00\cb\b7\09\00\91\c2\00\00R\aa\09\00\b8W\02\00\9c\f7\04\00M>\00\00\02d\06\00\c0B\08\00\e2\7f\0e\00\e2\95\0c\00c\08\01\00^\e7\08\00ie\01\00D\b3\0c\00\a2\07\09\00\88\84\04\00\13y\01\00\cd=\0d\00\9f\ef\01\00\f7\ef\0a\00\0eu\0a\00\db\9b\0c\00aW\0a\00\cd\93\07\00\87\e5\ff\ffl.\0a\00\c9\d0\06\00U\8c\08\00\9d\1b\0b\00q[\0a\00\aa\88\06\00)\9e\0b\00\f1\fc\01\00\f7\0e\0b\00\b8\96\04\00B3\0b\00\e3\86\07\00\e8\bf\0b\00\926\07\000\e3\01\00\ef\98\04\00\db\ce\07\00\96\d9\05\00\aaQ\02\002J\ff\ff\f7\9b\ff\ff\d0\ca\ff\ff\87\e5\ff\ff\f4\10\00\00\94;\00\00M>\00\00\d7[\00\00\a4\99\00\00\91\c2\00\00\e7\ed\00\00\81\03\01\00c\08\01\00ie\01\00\13y\01\00|\c0\01\00\c7\d0\01\000\e3\01\00\9f\ef\01\00\f1\fc\01\00a>\02\00\aaQ\02\00\b8W\02\00>\8a\02\00i\a6\02\00F\ac\02\00O\dc\02\008\0b\03\00\1f}\03\00\0b\1c\04\00\c2k\04\00lx\04\00\88\84\04\00\b8\96\04\00\ef\98\04\00\bf\d9\04\00\9c\f7\04\00\8c\8f\05\00\96\d9\05\00\95\ed\05\00zE\06\00\8fL\06\00\02d\06\00\aa\88\06\00\ec\c7\06\00\c9\d0\06\00A\15\07\004*\07\00\926\07\00\e3\86\07\00\cd\93\07\00\db\ce\07\00\c0B\08\00U\8c\08\00\97\e2\08\00^\e7\08\00\f0\fb\08\00\a2\07\09\00R\aa\09\00\cb\b7\09\00l.\0a\00aW\0a\00q[\0a\00\0eu\0a\00\c7\c7\0a\00\ed\d8\0a\00\f7\ef\0a\00\f7\0e\0b\00\9d\1b\0b\00B3\0b\00oJ\0b\00\f2N\0b\00\e1}\0b\00)\9e\0b\00\8e\b3\0b\00\e8\bf\0b\00\85\cf\0b\00\ac\cf\0b\00\f7h\0c\00\01v\0c\00\efy\0c\00\e2\95\0c\00\db\9b\0c\00D\b3\0c\00:\0b\0d\00\1e\1d\0d\00\cd=\0d\00\8fw\0d\00\88\de\0d\00\a3\e9\0d\00$\0f\0e\00\a5<\0e\00\a5<\0e\00\a5<\0e\00{d\0e\00\e2\7f\0e\00\ee\8a\0e\00\81\b3\0e\00\ac\e7\0e\00c+\0f\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 
@@ -17516,7 +17590,8 @@ main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
   (elem (;0;) (i32.const 1) func $int_compare $test_sortedarray_new_free $test_sortedarray_insert $test_sortedarray_get $test_sortedarray_remove $test_sortedarray_index_of $test_sortedarray_clear)
   (data $.rodata (i32.const 1024) ""test_sortedarray_insert\00test_sortedarray_get\00test_sortedarray_clear\00test_sortedarray_index_of\00test_sortedarray_remove\00test_sortedarray_new_free\00check_sorted\00../files/src/test-sortedarray.c\00*got == sorted_test_values[check_idx]\00*got == sorted_test_values[i]\00sorted_test_values[got_idx] == sorted_test_values[i]\00sortedarray_length(sa) == NUM_TEST_VALUES - 1 - REMOVE_IDX_2_LEN - REMOVE_IDX_3_REAL_LEN\00sa == NULL\00sortedarray_new(0, NULL) == NULL\00sortedarray_get(sa, 999999) == NULL\00sortedarray_get(NULL, 0) == NULL\00sortedarray_get(sa, sortedarray_length(sa)) == NULL\00got != NULL\00sa != NULL\00sortedarray_index_of(sa, &test_index) == -1\00sortedarray_index_of(NULL, NULL) == -1\00sortedarray_length(sa) == 0\00sortedarray_insert(NULL, NULL) == 0\00sortedarray_remove(sa, 999999) == 0\00sortedarray_remove_range(sa, 999999, 44) == 0\00sortedarray_remove_range(sa, sortedarray_length(sa), 3) == 0\00sortedarray_remove(NULL, 0) == 0\00sortedarray_remove(sa, sortedarray_length(sa)) == 0\00int_compare(sortedarray_get(sa, i - 1), sortedarray_get(sa, i)) <= 0\00sortedarray_remove_range(sa, REMOVE_IDX_3, REMOVE_IDX_3_LEN) != 0\00sortedarray_remove_range(sa, REMOVE_IDX_2, REMOVE_IDX_2_LEN) != 0\00sortedarray_remove(sa, REMOVE_IDX_1) != 0\00"")
   (data $.data (i32.const 2240) ""|\c0\01\00lx\04\00\94;\00\00\bf\d9\04\00\1e\1d\0d\00{d\0e\00i\a6\02\00\ec\c7\06\00\c2k\04\00\e7\ed\00\00\c7\c7\0a\00\8fL\06\00\d0\ca\ff\ffA\15\07\00$\0f\0e\00zE\06\00\c7\d0\01\00\88\de\0d\00:\0b\0d\00\1f}\03\00F\ac\02\00\ac\e7\0e\00\81\b3\0e\00\a4\99\00\00\85\cf\0b\00\f0\fb\08\00\d7[\00\00\8c\8f\05\00\01v\0c\00\81\03\01\00\a3\e9\0d\00\ac\cf\0b\00\f4\10\00\002J\ff\ffoJ\0b\00\95\ed\05\00\ed\d8\0a\00\efy\0c\00\97\e2\08\00c+\0f\00\f2N\0b\00\f7h\0c\00O\dc\02\00a>\02\00\a5<\0e\00\a5<\0e\00\a5<\0e\00\e1}\0b\004*\07\00\8fw\0d\00\ee\8a\0e\00>\8a\02\00\f7\9b\ff\ff\8e\b3\0b\008\0b\03\00\0b\1c\04\00\cb\b7\09\00\91\c2\00\00R\aa\09\00\b8W\02\00\9c\f7\04\00M>\00\00\02d\06\00\c0B\08\00\e2\7f\0e\00\e2\95\0c\00c\08\01\00^\e7\08\00ie\01\00D\b3\0c\00\a2\07\09\00\88\84\04\00\13y\01\00\cd=\0d\00\9f\ef\01\00\f7\ef\0a\00\0eu\0a\00\db\9b\0c\00aW\0a\00\cd\93\07\00\87\e5\ff\ffl.\0a\00\c9\d0\06\00U\8c\08\00\9d\1b\0b\00q[\0a\00\aa\88\06\00)\9e\0b\00\f1\fc\01\00\f7\0e\0b\00\b8\96\04\00B3\0b\00\e3\86\07\00\e8\bf\0b\00\926\07\000\e3\01\00\ef\98\04\00\db\ce\07\00\96\d9\05\00\aaQ\02\002J\ff\ff\f7\9b\ff\ff\d0\ca\ff\ff\87\e5\ff\ff\f4\10\00\00\94;\00\00M>\00\00\d7[\00\00\a4\99\00\00\91\c2\00\00\e7\ed\00\00\81\03\01\00c\08\01\00ie\01\00\13y\01\00|\c0\01\00\c7\d0\01\000\e3\01\00\9f\ef\01\00\f1\fc\01\00a>\02\00\aaQ\02\00\b8W\02\00>\8a\02\00i\a6\02\00F\ac\02\00O\dc\02\008\0b\03\00\1f}\03\00\0b\1c\04\00\c2k\04\00lx\04\00\88\84\04\00\b8\96\04\00\ef\98\04\00\bf\d9\04\00\9c\f7\04\00\8c\8f\05\00\96\d9\05\00\95\ed\05\00zE\06\00\8fL\06\00\02d\06\00\aa\88\06\00\ec\c7\06\00\c9\d0\06\00A\15\07\004*\07\00\926\07\00\e3\86\07\00\cd\93\07\00\db\ce\07\00\c0B\08\00U\8c\08\00\97\e2\08\00^\e7\08\00\f0\fb\08\00\a2\07\09\00R\aa\09\00\cb\b7\09\00l.\0a\00aW\0a\00q[\0a\00\0eu\0a\00\c7\c7\0a\00\ed\d8\0a\00\f7\ef\0a\00\f7\0e\0b\00\9d\1b\0b\00B3\0b\00oJ\0b\00\f2N\0b\00\e1}\0b\00)\9e\0b\00\8e\b3\0b\00\e8\bf\0b\00\85\cf\0b\00\ac\cf\0b\00\f7h\0c\00\01v\0c\00\efy\0c\00\e2\95\0c\00\db\9b\0c\00D\b3\0c\00:\0b\0d\00\1e\1d\0d\00\cd=\0d\00\8fw\0d\00\88\de\0d\00\a3\e9\0d\00$\0f\0e\00\a5<\0e\00\a5<\0e\00\a5<\0e\00{d\0e\00\e2\7f\0e\00\ee\8a\0e\00\81\b3\0e\00\ac\e7\0e\00c+\0f\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-print_tree,"AVLTreeNode *node, int depth",,null,"static void print_tree(AVLTreeNode *node, int depth)
+print_tree,"AVLTreeNode *node, int depth","Performs an action and returns 0 on failure or 1 on success.
+Typical for functions that modify data structures and need to signal status.",null,"static void print_tree(AVLTreeNode *node, int depth)
 {
 	int *value;
 	int i;
@@ -17536,7 +17611,8 @@ print_tree,"AVLTreeNode *node, int depth",,null,"static void print_tree(AVLTreeN
 
 	print_tree(avl_tree_node_child(node, AVL_TREE_NODE_RIGHT), depth + 1);
 }",
-find_subtree_height,AVLTreeNode *node,,0 | left_height + 1 | right_height + 1,"
+find_subtree_height,AVLTreeNode *node,"Performs an action and returns 0 on failure or 1 on success.
+Typical for functions that modify data structures and need to signal status.",0 | left_height + 1 | right_height + 1,"
 int find_subtree_height(AVLTreeNode *node)
 {
 	AVLTreeNode *left_subtree;
@@ -17701,7 +17777,8 @@ int find_subtree_height(AVLTreeNode *node)
     global.set $__stack_pointer
     local.get 31
     return)"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 	return 0;
@@ -17780,7 +17857,8 @@ main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
   (elem (;0;) (i32.const 1) func $int_compare $test_sortedarray_new_free $test_sortedarray_insert $test_sortedarray_get $test_sortedarray_remove $test_sortedarray_index_of $test_sortedarray_clear)
   (data $.rodata (i32.const 1024) ""test_sortedarray_insert\00test_sortedarray_get\00test_sortedarray_clear\00test_sortedarray_index_of\00test_sortedarray_remove\00test_sortedarray_new_free\00check_sorted\00../files/src/test-sortedarray.c\00*got == sorted_test_values[check_idx]\00*got == sorted_test_values[i]\00sorted_test_values[got_idx] == sorted_test_values[i]\00sortedarray_length(sa) == NUM_TEST_VALUES - 1 - REMOVE_IDX_2_LEN - REMOVE_IDX_3_REAL_LEN\00sa == NULL\00sortedarray_new(0, NULL) == NULL\00sortedarray_get(sa, 999999) == NULL\00sortedarray_get(NULL, 0) == NULL\00sortedarray_get(sa, sortedarray_length(sa)) == NULL\00got != NULL\00sa != NULL\00sortedarray_index_of(sa, &test_index) == -1\00sortedarray_index_of(NULL, NULL) == -1\00sortedarray_length(sa) == 0\00sortedarray_insert(NULL, NULL) == 0\00sortedarray_remove(sa, 999999) == 0\00sortedarray_remove_range(sa, 999999, 44) == 0\00sortedarray_remove_range(sa, sortedarray_length(sa), 3) == 0\00sortedarray_remove(NULL, 0) == 0\00sortedarray_remove(sa, sortedarray_length(sa)) == 0\00int_compare(sortedarray_get(sa, i - 1), sortedarray_get(sa, i)) <= 0\00sortedarray_remove_range(sa, REMOVE_IDX_3, REMOVE_IDX_3_LEN) != 0\00sortedarray_remove_range(sa, REMOVE_IDX_2, REMOVE_IDX_2_LEN) != 0\00sortedarray_remove(sa, REMOVE_IDX_1) != 0\00"")
   (data $.data (i32.const 2240) ""|\c0\01\00lx\04\00\94;\00\00\bf\d9\04\00\1e\1d\0d\00{d\0e\00i\a6\02\00\ec\c7\06\00\c2k\04\00\e7\ed\00\00\c7\c7\0a\00\8fL\06\00\d0\ca\ff\ffA\15\07\00$\0f\0e\00zE\06\00\c7\d0\01\00\88\de\0d\00:\0b\0d\00\1f}\03\00F\ac\02\00\ac\e7\0e\00\81\b3\0e\00\a4\99\00\00\85\cf\0b\00\f0\fb\08\00\d7[\00\00\8c\8f\05\00\01v\0c\00\81\03\01\00\a3\e9\0d\00\ac\cf\0b\00\f4\10\00\002J\ff\ffoJ\0b\00\95\ed\05\00\ed\d8\0a\00\efy\0c\00\97\e2\08\00c+\0f\00\f2N\0b\00\f7h\0c\00O\dc\02\00a>\02\00\a5<\0e\00\a5<\0e\00\a5<\0e\00\e1}\0b\004*\07\00\8fw\0d\00\ee\8a\0e\00>\8a\02\00\f7\9b\ff\ff\8e\b3\0b\008\0b\03\00\0b\1c\04\00\cb\b7\09\00\91\c2\00\00R\aa\09\00\b8W\02\00\9c\f7\04\00M>\00\00\02d\06\00\c0B\08\00\e2\7f\0e\00\e2\95\0c\00c\08\01\00^\e7\08\00ie\01\00D\b3\0c\00\a2\07\09\00\88\84\04\00\13y\01\00\cd=\0d\00\9f\ef\01\00\f7\ef\0a\00\0eu\0a\00\db\9b\0c\00aW\0a\00\cd\93\07\00\87\e5\ff\ffl.\0a\00\c9\d0\06\00U\8c\08\00\9d\1b\0b\00q[\0a\00\aa\88\06\00)\9e\0b\00\f1\fc\01\00\f7\0e\0b\00\b8\96\04\00B3\0b\00\e3\86\07\00\e8\bf\0b\00\926\07\000\e3\01\00\ef\98\04\00\db\ce\07\00\96\d9\05\00\aaQ\02\002J\ff\ff\f7\9b\ff\ff\d0\ca\ff\ff\87\e5\ff\ff\f4\10\00\00\94;\00\00M>\00\00\d7[\00\00\a4\99\00\00\91\c2\00\00\e7\ed\00\00\81\03\01\00c\08\01\00ie\01\00\13y\01\00|\c0\01\00\c7\d0\01\000\e3\01\00\9f\ef\01\00\f1\fc\01\00a>\02\00\aaQ\02\00\b8W\02\00>\8a\02\00i\a6\02\00F\ac\02\00O\dc\02\008\0b\03\00\1f}\03\00\0b\1c\04\00\c2k\04\00lx\04\00\88\84\04\00\b8\96\04\00\ef\98\04\00\bf\d9\04\00\9c\f7\04\00\8c\8f\05\00\96\d9\05\00\95\ed\05\00zE\06\00\8fL\06\00\02d\06\00\aa\88\06\00\ec\c7\06\00\c9\d0\06\00A\15\07\004*\07\00\926\07\00\e3\86\07\00\cd\93\07\00\db\ce\07\00\c0B\08\00U\8c\08\00\97\e2\08\00^\e7\08\00\f0\fb\08\00\a2\07\09\00R\aa\09\00\cb\b7\09\00l.\0a\00aW\0a\00q[\0a\00\0eu\0a\00\c7\c7\0a\00\ed\d8\0a\00\f7\ef\0a\00\f7\0e\0b\00\9d\1b\0b\00B3\0b\00oJ\0b\00\f2N\0b\00\e1}\0b\00)\9e\0b\00\8e\b3\0b\00\e8\bf\0b\00\85\cf\0b\00\ac\cf\0b\00\f7h\0c\00\01v\0c\00\efy\0c\00\e2\95\0c\00\db\9b\0c\00D\b3\0c\00:\0b\0d\00\1e\1d\0d\00\cd=\0d\00\8fw\0d\00\88\de\0d\00\a3\e9\0d\00$\0f\0e\00\a5<\0e\00\a5<\0e\00\a5<\0e\00{d\0e\00\e2\7f\0e\00\ee\8a\0e\00\81\b3\0e\00\ac\e7\0e\00c+\0f\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-test_out_of_memory,,,null,"void test_out_of_memory(void)
+test_out_of_memory,,"Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",null,"void test_out_of_memory(void)
 {
 	BinaryHeap *heap;
 	int *value;
@@ -17948,7 +18026,8 @@ test_out_of_memory,,,null,"void test_out_of_memory(void)
     local.get 31
     global.set $__stack_pointer
     return)"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 
@@ -18028,7 +18107,8 @@ main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
   (elem (;0;) (i32.const 1) func $int_compare $test_sortedarray_new_free $test_sortedarray_insert $test_sortedarray_get $test_sortedarray_remove $test_sortedarray_index_of $test_sortedarray_clear)
   (data $.rodata (i32.const 1024) ""test_sortedarray_insert\00test_sortedarray_get\00test_sortedarray_clear\00test_sortedarray_index_of\00test_sortedarray_remove\00test_sortedarray_new_free\00check_sorted\00../files/src/test-sortedarray.c\00*got == sorted_test_values[check_idx]\00*got == sorted_test_values[i]\00sorted_test_values[got_idx] == sorted_test_values[i]\00sortedarray_length(sa) == NUM_TEST_VALUES - 1 - REMOVE_IDX_2_LEN - REMOVE_IDX_3_REAL_LEN\00sa == NULL\00sortedarray_new(0, NULL) == NULL\00sortedarray_get(sa, 999999) == NULL\00sortedarray_get(NULL, 0) == NULL\00sortedarray_get(sa, sortedarray_length(sa)) == NULL\00got != NULL\00sa != NULL\00sortedarray_index_of(sa, &test_index) == -1\00sortedarray_index_of(NULL, NULL) == -1\00sortedarray_length(sa) == 0\00sortedarray_insert(NULL, NULL) == 0\00sortedarray_remove(sa, 999999) == 0\00sortedarray_remove_range(sa, 999999, 44) == 0\00sortedarray_remove_range(sa, sortedarray_length(sa), 3) == 0\00sortedarray_remove(NULL, 0) == 0\00sortedarray_remove(sa, sortedarray_length(sa)) == 0\00int_compare(sortedarray_get(sa, i - 1), sortedarray_get(sa, i)) <= 0\00sortedarray_remove_range(sa, REMOVE_IDX_3, REMOVE_IDX_3_LEN) != 0\00sortedarray_remove_range(sa, REMOVE_IDX_2, REMOVE_IDX_2_LEN) != 0\00sortedarray_remove(sa, REMOVE_IDX_1) != 0\00"")
   (data $.data (i32.const 2240) ""|\c0\01\00lx\04\00\94;\00\00\bf\d9\04\00\1e\1d\0d\00{d\0e\00i\a6\02\00\ec\c7\06\00\c2k\04\00\e7\ed\00\00\c7\c7\0a\00\8fL\06\00\d0\ca\ff\ffA\15\07\00$\0f\0e\00zE\06\00\c7\d0\01\00\88\de\0d\00:\0b\0d\00\1f}\03\00F\ac\02\00\ac\e7\0e\00\81\b3\0e\00\a4\99\00\00\85\cf\0b\00\f0\fb\08\00\d7[\00\00\8c\8f\05\00\01v\0c\00\81\03\01\00\a3\e9\0d\00\ac\cf\0b\00\f4\10\00\002J\ff\ffoJ\0b\00\95\ed\05\00\ed\d8\0a\00\efy\0c\00\97\e2\08\00c+\0f\00\f2N\0b\00\f7h\0c\00O\dc\02\00a>\02\00\a5<\0e\00\a5<\0e\00\a5<\0e\00\e1}\0b\004*\07\00\8fw\0d\00\ee\8a\0e\00>\8a\02\00\f7\9b\ff\ff\8e\b3\0b\008\0b\03\00\0b\1c\04\00\cb\b7\09\00\91\c2\00\00R\aa\09\00\b8W\02\00\9c\f7\04\00M>\00\00\02d\06\00\c0B\08\00\e2\7f\0e\00\e2\95\0c\00c\08\01\00^\e7\08\00ie\01\00D\b3\0c\00\a2\07\09\00\88\84\04\00\13y\01\00\cd=\0d\00\9f\ef\01\00\f7\ef\0a\00\0eu\0a\00\db\9b\0c\00aW\0a\00\cd\93\07\00\87\e5\ff\ffl.\0a\00\c9\d0\06\00U\8c\08\00\9d\1b\0b\00q[\0a\00\aa\88\06\00)\9e\0b\00\f1\fc\01\00\f7\0e\0b\00\b8\96\04\00B3\0b\00\e3\86\07\00\e8\bf\0b\00\926\07\000\e3\01\00\ef\98\04\00\db\ce\07\00\96\d9\05\00\aaQ\02\002J\ff\ff\f7\9b\ff\ff\d0\ca\ff\ff\87\e5\ff\ff\f4\10\00\00\94;\00\00M>\00\00\d7[\00\00\a4\99\00\00\91\c2\00\00\e7\ed\00\00\81\03\01\00c\08\01\00ie\01\00\13y\01\00|\c0\01\00\c7\d0\01\000\e3\01\00\9f\ef\01\00\f1\fc\01\00a>\02\00\aaQ\02\00\b8W\02\00>\8a\02\00i\a6\02\00F\ac\02\00O\dc\02\008\0b\03\00\1f}\03\00\0b\1c\04\00\c2k\04\00lx\04\00\88\84\04\00\b8\96\04\00\ef\98\04\00\bf\d9\04\00\9c\f7\04\00\8c\8f\05\00\96\d9\05\00\95\ed\05\00zE\06\00\8fL\06\00\02d\06\00\aa\88\06\00\ec\c7\06\00\c9\d0\06\00A\15\07\004*\07\00\926\07\00\e3\86\07\00\cd\93\07\00\db\ce\07\00\c0B\08\00U\8c\08\00\97\e2\08\00^\e7\08\00\f0\fb\08\00\a2\07\09\00R\aa\09\00\cb\b7\09\00l.\0a\00aW\0a\00q[\0a\00\0eu\0a\00\c7\c7\0a\00\ed\d8\0a\00\f7\ef\0a\00\f7\0e\0b\00\9d\1b\0b\00B3\0b\00oJ\0b\00\f2N\0b\00\e1}\0b\00)\9e\0b\00\8e\b3\0b\00\e8\bf\0b\00\85\cf\0b\00\ac\cf\0b\00\f7h\0c\00\01v\0c\00\efy\0c\00\e2\95\0c\00\db\9b\0c\00D\b3\0c\00:\0b\0d\00\1e\1d\0d\00\cd=\0d\00\8fw\0d\00\88\de\0d\00\a3\e9\0d\00$\0f\0e\00\a5<\0e\00\a5<\0e\00\a5<\0e\00{d\0e\00\e2\7f\0e\00\ee\8a\0e\00\81\b3\0e\00\ac\e7\0e\00c+\0f\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-verify_heap,BinomialHeap *heap,,null,"static void verify_heap(BinomialHeap *heap)
+verify_heap,BinomialHeap *heap,"Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",null,"static void verify_heap(BinomialHeap *heap)
 {
 	unsigned int num_vals;
 	int *val;
@@ -18309,7 +18389,8 @@ verify_heap,BinomialHeap *heap,,null,"static void verify_heap(BinomialHeap *heap
   (elem (;0;) (i32.const 1) func $int_compare $test_binomial_heap_new_free $test_binomial_heap_insert $test_min_heap $test_max_heap $test_insert_out_of_memory $test_pop_out_of_memory)
   (data $.rodata (i32.const 1024) ""test_insert_out_of_memory\00test_pop_out_of_memory\00test_binomial_heap_insert\00binomial_heap_num_entries(heap) == num_vals\00verify_heap\00test_max_heap\00test_min_heap\00generate_heap\00*val == i\00test_binomial_heap_new_free\00../files/src/test-binomial-heap.c\00binomial_heap_num_entries(heap) == NUM_TEST_VALUES\00val == NULL\00binomial_heap_pop(heap) == NULL\00binomial_heap_new(BINOMIAL_HEAP_TYPE_MIN, int_compare) == NULL\00*val == i - 1\00num_vals == NUM_TEST_VALUES - 1\00*val == i + 1\00binomial_heap_insert(heap, &i) == 0\00binomial_heap_insert(heap, &test_array[TEST_VALUE]) == 0\00binomial_heap_insert(heap, &test_array[i]) != 0\00"")
   (data $.data (i32.const 1632) ""\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-test_insert_out_of_memory,,,null,"static void test_insert_out_of_memory(void)
+test_insert_out_of_memory,,"Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",null,"static void test_insert_out_of_memory(void)
 {
 	BinomialHeap *heap;
 	int i;
@@ -18457,7 +18538,8 @@ test_insert_out_of_memory,,,null,"static void test_insert_out_of_memory(void)
     local.get 29
     global.set $__stack_pointer
     return)"
-test_pop_out_of_memory,,,null,"void test_pop_out_of_memory(void)
+test_pop_out_of_memory,,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"void test_pop_out_of_memory(void)
 {
 	BinomialHeap *heap;
 	int i;
@@ -18592,7 +18674,8 @@ test_pop_out_of_memory,,,null,"void test_pop_out_of_memory(void)
     local.get 27
     global.set $__stack_pointer
     return)"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 
@@ -18672,7 +18755,8 @@ main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
   (elem (;0;) (i32.const 1) func $int_compare $test_sortedarray_new_free $test_sortedarray_insert $test_sortedarray_get $test_sortedarray_remove $test_sortedarray_index_of $test_sortedarray_clear)
   (data $.rodata (i32.const 1024) ""test_sortedarray_insert\00test_sortedarray_get\00test_sortedarray_clear\00test_sortedarray_index_of\00test_sortedarray_remove\00test_sortedarray_new_free\00check_sorted\00../files/src/test-sortedarray.c\00*got == sorted_test_values[check_idx]\00*got == sorted_test_values[i]\00sorted_test_values[got_idx] == sorted_test_values[i]\00sortedarray_length(sa) == NUM_TEST_VALUES - 1 - REMOVE_IDX_2_LEN - REMOVE_IDX_3_REAL_LEN\00sa == NULL\00sortedarray_new(0, NULL) == NULL\00sortedarray_get(sa, 999999) == NULL\00sortedarray_get(NULL, 0) == NULL\00sortedarray_get(sa, sortedarray_length(sa)) == NULL\00got != NULL\00sa != NULL\00sortedarray_index_of(sa, &test_index) == -1\00sortedarray_index_of(NULL, NULL) == -1\00sortedarray_length(sa) == 0\00sortedarray_insert(NULL, NULL) == 0\00sortedarray_remove(sa, 999999) == 0\00sortedarray_remove_range(sa, 999999, 44) == 0\00sortedarray_remove_range(sa, sortedarray_length(sa), 3) == 0\00sortedarray_remove(NULL, 0) == 0\00sortedarray_remove(sa, sortedarray_length(sa)) == 0\00int_compare(sortedarray_get(sa, i - 1), sortedarray_get(sa, i)) <= 0\00sortedarray_remove_range(sa, REMOVE_IDX_3, REMOVE_IDX_3_LEN) != 0\00sortedarray_remove_range(sa, REMOVE_IDX_2, REMOVE_IDX_2_LEN) != 0\00sortedarray_remove(sa, REMOVE_IDX_1) != 0\00"")
   (data $.data (i32.const 2240) ""|\c0\01\00lx\04\00\94;\00\00\bf\d9\04\00\1e\1d\0d\00{d\0e\00i\a6\02\00\ec\c7\06\00\c2k\04\00\e7\ed\00\00\c7\c7\0a\00\8fL\06\00\d0\ca\ff\ffA\15\07\00$\0f\0e\00zE\06\00\c7\d0\01\00\88\de\0d\00:\0b\0d\00\1f}\03\00F\ac\02\00\ac\e7\0e\00\81\b3\0e\00\a4\99\00\00\85\cf\0b\00\f0\fb\08\00\d7[\00\00\8c\8f\05\00\01v\0c\00\81\03\01\00\a3\e9\0d\00\ac\cf\0b\00\f4\10\00\002J\ff\ffoJ\0b\00\95\ed\05\00\ed\d8\0a\00\efy\0c\00\97\e2\08\00c+\0f\00\f2N\0b\00\f7h\0c\00O\dc\02\00a>\02\00\a5<\0e\00\a5<\0e\00\a5<\0e\00\e1}\0b\004*\07\00\8fw\0d\00\ee\8a\0e\00>\8a\02\00\f7\9b\ff\ff\8e\b3\0b\008\0b\03\00\0b\1c\04\00\cb\b7\09\00\91\c2\00\00R\aa\09\00\b8W\02\00\9c\f7\04\00M>\00\00\02d\06\00\c0B\08\00\e2\7f\0e\00\e2\95\0c\00c\08\01\00^\e7\08\00ie\01\00D\b3\0c\00\a2\07\09\00\88\84\04\00\13y\01\00\cd=\0d\00\9f\ef\01\00\f7\ef\0a\00\0eu\0a\00\db\9b\0c\00aW\0a\00\cd\93\07\00\87\e5\ff\ffl.\0a\00\c9\d0\06\00U\8c\08\00\9d\1b\0b\00q[\0a\00\aa\88\06\00)\9e\0b\00\f1\fc\01\00\f7\0e\0b\00\b8\96\04\00B3\0b\00\e3\86\07\00\e8\bf\0b\00\926\07\000\e3\01\00\ef\98\04\00\db\ce\07\00\96\d9\05\00\aaQ\02\002J\ff\ff\f7\9b\ff\ff\d0\ca\ff\ff\87\e5\ff\ff\f4\10\00\00\94;\00\00M>\00\00\d7[\00\00\a4\99\00\00\91\c2\00\00\e7\ed\00\00\81\03\01\00c\08\01\00ie\01\00\13y\01\00|\c0\01\00\c7\d0\01\000\e3\01\00\9f\ef\01\00\f1\fc\01\00a>\02\00\aaQ\02\00\b8W\02\00>\8a\02\00i\a6\02\00F\ac\02\00O\dc\02\008\0b\03\00\1f}\03\00\0b\1c\04\00\c2k\04\00lx\04\00\88\84\04\00\b8\96\04\00\ef\98\04\00\bf\d9\04\00\9c\f7\04\00\8c\8f\05\00\96\d9\05\00\95\ed\05\00zE\06\00\8fL\06\00\02d\06\00\aa\88\06\00\ec\c7\06\00\c9\d0\06\00A\15\07\004*\07\00\926\07\00\e3\86\07\00\cd\93\07\00\db\ce\07\00\c0B\08\00U\8c\08\00\97\e2\08\00^\e7\08\00\f0\fb\08\00\a2\07\09\00R\aa\09\00\cb\b7\09\00l.\0a\00aW\0a\00q[\0a\00\0eu\0a\00\c7\c7\0a\00\ed\d8\0a\00\f7\ef\0a\00\f7\0e\0b\00\9d\1b\0b\00B3\0b\00oJ\0b\00\f2N\0b\00\e1}\0b\00)\9e\0b\00\8e\b3\0b\00\e8\bf\0b\00\85\cf\0b\00\ac\cf\0b\00\f7h\0c\00\01v\0c\00\efy\0c\00\e2\95\0c\00\db\9b\0c\00D\b3\0c\00:\0b\0d\00\1e\1d\0d\00\cd=\0d\00\8fw\0d\00\88\de\0d\00\a3\e9\0d\00$\0f\0e\00\a5<\0e\00\a5<\0e\00\a5<\0e\00{d\0e\00\e2\7f\0e\00\ee\8a\0e\00\81\b3\0e\00\ac\e7\0e\00c+\0f\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-test_bloom_filter_mismatch,,,null,"void test_bloom_filter_mismatch(void)
+test_bloom_filter_mismatch,,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"void test_bloom_filter_mismatch(void)
 {
 	BloomFilter *filter1;
 	BloomFilter *filter2;
@@ -19036,7 +19120,8 @@ test_bloom_filter_mismatch,,,null,"void test_bloom_filter_mismatch(void)
     local.get 90
     global.set $__stack_pointer
     return)"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 
@@ -19116,7 +19201,8 @@ main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
   (elem (;0;) (i32.const 1) func $int_compare $test_sortedarray_new_free $test_sortedarray_insert $test_sortedarray_get $test_sortedarray_remove $test_sortedarray_index_of $test_sortedarray_clear)
   (data $.rodata (i32.const 1024) ""test_sortedarray_insert\00test_sortedarray_get\00test_sortedarray_clear\00test_sortedarray_index_of\00test_sortedarray_remove\00test_sortedarray_new_free\00check_sorted\00../files/src/test-sortedarray.c\00*got == sorted_test_values[check_idx]\00*got == sorted_test_values[i]\00sorted_test_values[got_idx] == sorted_test_values[i]\00sortedarray_length(sa) == NUM_TEST_VALUES - 1 - REMOVE_IDX_2_LEN - REMOVE_IDX_3_REAL_LEN\00sa == NULL\00sortedarray_new(0, NULL) == NULL\00sortedarray_get(sa, 999999) == NULL\00sortedarray_get(NULL, 0) == NULL\00sortedarray_get(sa, sortedarray_length(sa)) == NULL\00got != NULL\00sa != NULL\00sortedarray_index_of(sa, &test_index) == -1\00sortedarray_index_of(NULL, NULL) == -1\00sortedarray_length(sa) == 0\00sortedarray_insert(NULL, NULL) == 0\00sortedarray_remove(sa, 999999) == 0\00sortedarray_remove_range(sa, 999999, 44) == 0\00sortedarray_remove_range(sa, sortedarray_length(sa), 3) == 0\00sortedarray_remove(NULL, 0) == 0\00sortedarray_remove(sa, sortedarray_length(sa)) == 0\00int_compare(sortedarray_get(sa, i - 1), sortedarray_get(sa, i)) <= 0\00sortedarray_remove_range(sa, REMOVE_IDX_3, REMOVE_IDX_3_LEN) != 0\00sortedarray_remove_range(sa, REMOVE_IDX_2, REMOVE_IDX_2_LEN) != 0\00sortedarray_remove(sa, REMOVE_IDX_1) != 0\00"")
   (data $.data (i32.const 2240) ""|\c0\01\00lx\04\00\94;\00\00\bf\d9\04\00\1e\1d\0d\00{d\0e\00i\a6\02\00\ec\c7\06\00\c2k\04\00\e7\ed\00\00\c7\c7\0a\00\8fL\06\00\d0\ca\ff\ffA\15\07\00$\0f\0e\00zE\06\00\c7\d0\01\00\88\de\0d\00:\0b\0d\00\1f}\03\00F\ac\02\00\ac\e7\0e\00\81\b3\0e\00\a4\99\00\00\85\cf\0b\00\f0\fb\08\00\d7[\00\00\8c\8f\05\00\01v\0c\00\81\03\01\00\a3\e9\0d\00\ac\cf\0b\00\f4\10\00\002J\ff\ffoJ\0b\00\95\ed\05\00\ed\d8\0a\00\efy\0c\00\97\e2\08\00c+\0f\00\f2N\0b\00\f7h\0c\00O\dc\02\00a>\02\00\a5<\0e\00\a5<\0e\00\a5<\0e\00\e1}\0b\004*\07\00\8fw\0d\00\ee\8a\0e\00>\8a\02\00\f7\9b\ff\ff\8e\b3\0b\008\0b\03\00\0b\1c\04\00\cb\b7\09\00\91\c2\00\00R\aa\09\00\b8W\02\00\9c\f7\04\00M>\00\00\02d\06\00\c0B\08\00\e2\7f\0e\00\e2\95\0c\00c\08\01\00^\e7\08\00ie\01\00D\b3\0c\00\a2\07\09\00\88\84\04\00\13y\01\00\cd=\0d\00\9f\ef\01\00\f7\ef\0a\00\0eu\0a\00\db\9b\0c\00aW\0a\00\cd\93\07\00\87\e5\ff\ffl.\0a\00\c9\d0\06\00U\8c\08\00\9d\1b\0b\00q[\0a\00\aa\88\06\00)\9e\0b\00\f1\fc\01\00\f7\0e\0b\00\b8\96\04\00B3\0b\00\e3\86\07\00\e8\bf\0b\00\926\07\000\e3\01\00\ef\98\04\00\db\ce\07\00\96\d9\05\00\aaQ\02\002J\ff\ff\f7\9b\ff\ff\d0\ca\ff\ff\87\e5\ff\ff\f4\10\00\00\94;\00\00M>\00\00\d7[\00\00\a4\99\00\00\91\c2\00\00\e7\ed\00\00\81\03\01\00c\08\01\00ie\01\00\13y\01\00|\c0\01\00\c7\d0\01\000\e3\01\00\9f\ef\01\00\f1\fc\01\00a>\02\00\aaQ\02\00\b8W\02\00>\8a\02\00i\a6\02\00F\ac\02\00O\dc\02\008\0b\03\00\1f}\03\00\0b\1c\04\00\c2k\04\00lx\04\00\88\84\04\00\b8\96\04\00\ef\98\04\00\bf\d9\04\00\9c\f7\04\00\8c\8f\05\00\96\d9\05\00\95\ed\05\00zE\06\00\8fL\06\00\02d\06\00\aa\88\06\00\ec\c7\06\00\c9\d0\06\00A\15\07\004*\07\00\926\07\00\e3\86\07\00\cd\93\07\00\db\ce\07\00\c0B\08\00U\8c\08\00\97\e2\08\00^\e7\08\00\f0\fb\08\00\a2\07\09\00R\aa\09\00\cb\b7\09\00l.\0a\00aW\0a\00q[\0a\00\0eu\0a\00\c7\c7\0a\00\ed\d8\0a\00\f7\ef\0a\00\f7\0e\0b\00\9d\1b\0b\00B3\0b\00oJ\0b\00\f2N\0b\00\e1}\0b\00)\9e\0b\00\8e\b3\0b\00\e8\bf\0b\00\85\cf\0b\00\ac\cf\0b\00\f7h\0c\00\01v\0c\00\efy\0c\00\e2\95\0c\00\db\9b\0c\00D\b3\0c\00:\0b\0d\00\1e\1d\0d\00\cd=\0d\00\8fw\0d\00\88\de\0d\00\a3\e9\0d\00$\0f\0e\00\a5<\0e\00\a5<\0e\00\a5<\0e\00{d\0e\00\e2\7f\0e\00\ee\8a\0e\00\81\b3\0e\00\ac\e7\0e\00c+\0f\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 
@@ -19196,7 +19282,8 @@ main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
   (elem (;0;) (i32.const 1) func $int_compare $test_sortedarray_new_free $test_sortedarray_insert $test_sortedarray_get $test_sortedarray_remove $test_sortedarray_index_of $test_sortedarray_clear)
   (data $.rodata (i32.const 1024) ""test_sortedarray_insert\00test_sortedarray_get\00test_sortedarray_clear\00test_sortedarray_index_of\00test_sortedarray_remove\00test_sortedarray_new_free\00check_sorted\00../files/src/test-sortedarray.c\00*got == sorted_test_values[check_idx]\00*got == sorted_test_values[i]\00sorted_test_values[got_idx] == sorted_test_values[i]\00sortedarray_length(sa) == NUM_TEST_VALUES - 1 - REMOVE_IDX_2_LEN - REMOVE_IDX_3_REAL_LEN\00sa == NULL\00sortedarray_new(0, NULL) == NULL\00sortedarray_get(sa, 999999) == NULL\00sortedarray_get(NULL, 0) == NULL\00sortedarray_get(sa, sortedarray_length(sa)) == NULL\00got != NULL\00sa != NULL\00sortedarray_index_of(sa, &test_index) == -1\00sortedarray_index_of(NULL, NULL) == -1\00sortedarray_length(sa) == 0\00sortedarray_insert(NULL, NULL) == 0\00sortedarray_remove(sa, 999999) == 0\00sortedarray_remove_range(sa, 999999, 44) == 0\00sortedarray_remove_range(sa, sortedarray_length(sa), 3) == 0\00sortedarray_remove(NULL, 0) == 0\00sortedarray_remove(sa, sortedarray_length(sa)) == 0\00int_compare(sortedarray_get(sa, i - 1), sortedarray_get(sa, i)) <= 0\00sortedarray_remove_range(sa, REMOVE_IDX_3, REMOVE_IDX_3_LEN) != 0\00sortedarray_remove_range(sa, REMOVE_IDX_2, REMOVE_IDX_2_LEN) != 0\00sortedarray_remove(sa, REMOVE_IDX_1) != 0\00"")
   (data $.data (i32.const 2240) ""|\c0\01\00lx\04\00\94;\00\00\bf\d9\04\00\1e\1d\0d\00{d\0e\00i\a6\02\00\ec\c7\06\00\c2k\04\00\e7\ed\00\00\c7\c7\0a\00\8fL\06\00\d0\ca\ff\ffA\15\07\00$\0f\0e\00zE\06\00\c7\d0\01\00\88\de\0d\00:\0b\0d\00\1f}\03\00F\ac\02\00\ac\e7\0e\00\81\b3\0e\00\a4\99\00\00\85\cf\0b\00\f0\fb\08\00\d7[\00\00\8c\8f\05\00\01v\0c\00\81\03\01\00\a3\e9\0d\00\ac\cf\0b\00\f4\10\00\002J\ff\ffoJ\0b\00\95\ed\05\00\ed\d8\0a\00\efy\0c\00\97\e2\08\00c+\0f\00\f2N\0b\00\f7h\0c\00O\dc\02\00a>\02\00\a5<\0e\00\a5<\0e\00\a5<\0e\00\e1}\0b\004*\07\00\8fw\0d\00\ee\8a\0e\00>\8a\02\00\f7\9b\ff\ff\8e\b3\0b\008\0b\03\00\0b\1c\04\00\cb\b7\09\00\91\c2\00\00R\aa\09\00\b8W\02\00\9c\f7\04\00M>\00\00\02d\06\00\c0B\08\00\e2\7f\0e\00\e2\95\0c\00c\08\01\00^\e7\08\00ie\01\00D\b3\0c\00\a2\07\09\00\88\84\04\00\13y\01\00\cd=\0d\00\9f\ef\01\00\f7\ef\0a\00\0eu\0a\00\db\9b\0c\00aW\0a\00\cd\93\07\00\87\e5\ff\ffl.\0a\00\c9\d0\06\00U\8c\08\00\9d\1b\0b\00q[\0a\00\aa\88\06\00)\9e\0b\00\f1\fc\01\00\f7\0e\0b\00\b8\96\04\00B3\0b\00\e3\86\07\00\e8\bf\0b\00\926\07\000\e3\01\00\ef\98\04\00\db\ce\07\00\96\d9\05\00\aaQ\02\002J\ff\ff\f7\9b\ff\ff\d0\ca\ff\ff\87\e5\ff\ff\f4\10\00\00\94;\00\00M>\00\00\d7[\00\00\a4\99\00\00\91\c2\00\00\e7\ed\00\00\81\03\01\00c\08\01\00ie\01\00\13y\01\00|\c0\01\00\c7\d0\01\000\e3\01\00\9f\ef\01\00\f1\fc\01\00a>\02\00\aaQ\02\00\b8W\02\00>\8a\02\00i\a6\02\00F\ac\02\00O\dc\02\008\0b\03\00\1f}\03\00\0b\1c\04\00\c2k\04\00lx\04\00\88\84\04\00\b8\96\04\00\ef\98\04\00\bf\d9\04\00\9c\f7\04\00\8c\8f\05\00\96\d9\05\00\95\ed\05\00zE\06\00\8fL\06\00\02d\06\00\aa\88\06\00\ec\c7\06\00\c9\d0\06\00A\15\07\004*\07\00\926\07\00\e3\86\07\00\cd\93\07\00\db\ce\07\00\c0B\08\00U\8c\08\00\97\e2\08\00^\e7\08\00\f0\fb\08\00\a2\07\09\00R\aa\09\00\cb\b7\09\00l.\0a\00aW\0a\00q[\0a\00\0eu\0a\00\c7\c7\0a\00\ed\d8\0a\00\f7\ef\0a\00\f7\0e\0b\00\9d\1b\0b\00B3\0b\00oJ\0b\00\f2N\0b\00\e1}\0b\00)\9e\0b\00\8e\b3\0b\00\e8\bf\0b\00\85\cf\0b\00\ac\cf\0b\00\f7h\0c\00\01v\0c\00\efy\0c\00\e2\95\0c\00\db\9b\0c\00D\b3\0c\00:\0b\0d\00\1e\1d\0d\00\cd=\0d\00\8fw\0d\00\88\de\0d\00\a3\e9\0d\00$\0f\0e\00\a5<\0e\00\a5<\0e\00\a5<\0e\00{d\0e\00\e2\7f\0e\00\ee\8a\0e\00\81\b3\0e\00\ac\e7\0e\00c+\0f\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 
@@ -19276,7 +19363,8 @@ main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
   (elem (;0;) (i32.const 1) func $int_compare $test_sortedarray_new_free $test_sortedarray_insert $test_sortedarray_get $test_sortedarray_remove $test_sortedarray_index_of $test_sortedarray_clear)
   (data $.rodata (i32.const 1024) ""test_sortedarray_insert\00test_sortedarray_get\00test_sortedarray_clear\00test_sortedarray_index_of\00test_sortedarray_remove\00test_sortedarray_new_free\00check_sorted\00../files/src/test-sortedarray.c\00*got == sorted_test_values[check_idx]\00*got == sorted_test_values[i]\00sorted_test_values[got_idx] == sorted_test_values[i]\00sortedarray_length(sa) == NUM_TEST_VALUES - 1 - REMOVE_IDX_2_LEN - REMOVE_IDX_3_REAL_LEN\00sa == NULL\00sortedarray_new(0, NULL) == NULL\00sortedarray_get(sa, 999999) == NULL\00sortedarray_get(NULL, 0) == NULL\00sortedarray_get(sa, sortedarray_length(sa)) == NULL\00got != NULL\00sa != NULL\00sortedarray_index_of(sa, &test_index) == -1\00sortedarray_index_of(NULL, NULL) == -1\00sortedarray_length(sa) == 0\00sortedarray_insert(NULL, NULL) == 0\00sortedarray_remove(sa, 999999) == 0\00sortedarray_remove_range(sa, 999999, 44) == 0\00sortedarray_remove_range(sa, sortedarray_length(sa), 3) == 0\00sortedarray_remove(NULL, 0) == 0\00sortedarray_remove(sa, sortedarray_length(sa)) == 0\00int_compare(sortedarray_get(sa, i - 1), sortedarray_get(sa, i)) <= 0\00sortedarray_remove_range(sa, REMOVE_IDX_3, REMOVE_IDX_3_LEN) != 0\00sortedarray_remove_range(sa, REMOVE_IDX_2, REMOVE_IDX_2_LEN) != 0\00sortedarray_remove(sa, REMOVE_IDX_1) != 0\00"")
   (data $.data (i32.const 2240) ""|\c0\01\00lx\04\00\94;\00\00\bf\d9\04\00\1e\1d\0d\00{d\0e\00i\a6\02\00\ec\c7\06\00\c2k\04\00\e7\ed\00\00\c7\c7\0a\00\8fL\06\00\d0\ca\ff\ffA\15\07\00$\0f\0e\00zE\06\00\c7\d0\01\00\88\de\0d\00:\0b\0d\00\1f}\03\00F\ac\02\00\ac\e7\0e\00\81\b3\0e\00\a4\99\00\00\85\cf\0b\00\f0\fb\08\00\d7[\00\00\8c\8f\05\00\01v\0c\00\81\03\01\00\a3\e9\0d\00\ac\cf\0b\00\f4\10\00\002J\ff\ffoJ\0b\00\95\ed\05\00\ed\d8\0a\00\efy\0c\00\97\e2\08\00c+\0f\00\f2N\0b\00\f7h\0c\00O\dc\02\00a>\02\00\a5<\0e\00\a5<\0e\00\a5<\0e\00\e1}\0b\004*\07\00\8fw\0d\00\ee\8a\0e\00>\8a\02\00\f7\9b\ff\ff\8e\b3\0b\008\0b\03\00\0b\1c\04\00\cb\b7\09\00\91\c2\00\00R\aa\09\00\b8W\02\00\9c\f7\04\00M>\00\00\02d\06\00\c0B\08\00\e2\7f\0e\00\e2\95\0c\00c\08\01\00^\e7\08\00ie\01\00D\b3\0c\00\a2\07\09\00\88\84\04\00\13y\01\00\cd=\0d\00\9f\ef\01\00\f7\ef\0a\00\0eu\0a\00\db\9b\0c\00aW\0a\00\cd\93\07\00\87\e5\ff\ffl.\0a\00\c9\d0\06\00U\8c\08\00\9d\1b\0b\00q[\0a\00\aa\88\06\00)\9e\0b\00\f1\fc\01\00\f7\0e\0b\00\b8\96\04\00B3\0b\00\e3\86\07\00\e8\bf\0b\00\926\07\000\e3\01\00\ef\98\04\00\db\ce\07\00\96\d9\05\00\aaQ\02\002J\ff\ff\f7\9b\ff\ff\d0\ca\ff\ff\87\e5\ff\ff\f4\10\00\00\94;\00\00M>\00\00\d7[\00\00\a4\99\00\00\91\c2\00\00\e7\ed\00\00\81\03\01\00c\08\01\00ie\01\00\13y\01\00|\c0\01\00\c7\d0\01\000\e3\01\00\9f\ef\01\00\f1\fc\01\00a>\02\00\aaQ\02\00\b8W\02\00>\8a\02\00i\a6\02\00F\ac\02\00O\dc\02\008\0b\03\00\1f}\03\00\0b\1c\04\00\c2k\04\00lx\04\00\88\84\04\00\b8\96\04\00\ef\98\04\00\bf\d9\04\00\9c\f7\04\00\8c\8f\05\00\96\d9\05\00\95\ed\05\00zE\06\00\8fL\06\00\02d\06\00\aa\88\06\00\ec\c7\06\00\c9\d0\06\00A\15\07\004*\07\00\926\07\00\e3\86\07\00\cd\93\07\00\db\ce\07\00\c0B\08\00U\8c\08\00\97\e2\08\00^\e7\08\00\f0\fb\08\00\a2\07\09\00R\aa\09\00\cb\b7\09\00l.\0a\00aW\0a\00q[\0a\00\0eu\0a\00\c7\c7\0a\00\ed\d8\0a\00\f7\ef\0a\00\f7\0e\0b\00\9d\1b\0b\00B3\0b\00oJ\0b\00\f2N\0b\00\e1}\0b\00)\9e\0b\00\8e\b3\0b\00\e8\bf\0b\00\85\cf\0b\00\ac\cf\0b\00\f7h\0c\00\01v\0c\00\efy\0c\00\e2\95\0c\00\db\9b\0c\00D\b3\0c\00:\0b\0d\00\1e\1d\0d\00\cd=\0d\00\8fw\0d\00\88\de\0d\00\a3\e9\0d\00$\0f\0e\00\a5<\0e\00\a5<\0e\00\a5<\0e\00{d\0e\00\e2\7f\0e\00\ee\8a\0e\00\81\b3\0e\00\ac\e7\0e\00c+\0f\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-test_hash_table_new_free,,,null,"void test_hash_table_new_free(void)
+test_hash_table_new_free,,"Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",null,"void test_hash_table_new_free(void)
 {
 	HashTable *hash_table;
 
@@ -19551,7 +19639,8 @@ test_hash_table_new_free,,,null,"void test_hash_table_new_free(void)
     local.get 61
     global.set $__stack_pointer
     return)"
-test_hash_table_insert_lookup,,,null,"void test_hash_table_insert_lookup(void)
+test_hash_table_insert_lookup,,"Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",null,"void test_hash_table_insert_lookup(void)
 {
 	HashTable *hash_table;
 	char buf[10];
@@ -19999,7 +20088,8 @@ test_hash_table_insert_lookup,,,null,"void test_hash_table_insert_lookup(void)
     local.get 109
     global.set $__stack_pointer
     return)"
-test_hash_table_iterating_remove,,,null,"void test_hash_table_iterating_remove(void)
+test_hash_table_iterating_remove,,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"void test_hash_table_iterating_remove(void)
 {
 	HashTable *hash_table;
 	HashTableIterator iterator;
@@ -20482,7 +20572,8 @@ test_hash_table_iterating_remove,,,null,"void test_hash_table_iterating_remove(v
     local.get 109
     global.set $__stack_pointer
     return)"
-new_key,int value,,result,"int *new_key(int value)
+new_key,int value,"Allocates heap memory for a new data structure or buffer.
+Returns NULL on allocation failure; the caller must handle errors.",result,"int *new_key(int value)
 {
 	int *result;
 
@@ -20553,7 +20644,8 @@ new_key,int value,,result,"int *new_key(int value)
     global.set $__stack_pointer
     local.get 13
     return)"
-free_key,void *key,,null,"void free_key(void *key)
+free_key,void *key,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"void free_key(void *key)
 {
 	free(key);
 
@@ -20603,7 +20695,8 @@ free_key,void *key,,null,"void free_key(void *key)
     local.get 11
     global.set $__stack_pointer
     return)"
-new_value,int value,,result,"int *new_value(int value)
+new_value,int value,"Allocates heap memory for a new data structure or buffer.
+Returns NULL on allocation failure; the caller must handle errors.",result,"int *new_value(int value)
 {
 	int *result;
 
@@ -20674,7 +20767,8 @@ new_value,int value,,result,"int *new_value(int value)
     global.set $__stack_pointer
     local.get 13
     return)"
-free_value,void *value,,null,"void free_value(void *value)
+free_value,void *value,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"void free_value(void *value)
 {
 	free(value);
 
@@ -20724,7 +20818,8 @@ free_value,void *value,,null,"void free_value(void *value)
     local.get 11
     global.set $__stack_pointer
     return)"
-test_hash_table_free_functions,,,null,"void test_hash_table_free_functions(void)
+test_hash_table_free_functions,,"Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",null,"void test_hash_table_free_functions(void)
 {
 	HashTable *hash_table;
 	int *key;
@@ -21270,7 +21365,8 @@ test_hash_table_free_functions,,,null,"void test_hash_table_free_functions(void)
     local.get 131
     global.set $__stack_pointer
     return)"
-test_hash_table_out_of_memory,,,null,"void test_hash_table_out_of_memory(void)
+test_hash_table_out_of_memory,,"Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",null,"void test_hash_table_out_of_memory(void)
 {
 	HashTable *hash_table;
 	int values[66];
@@ -21742,7 +21838,8 @@ test_hash_table_out_of_memory,,,null,"void test_hash_table_out_of_memory(void)
     local.get 116
     global.set $__stack_pointer
     return)"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 
@@ -21822,7 +21919,8 @@ main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
   (elem (;0;) (i32.const 1) func $int_compare $test_sortedarray_new_free $test_sortedarray_insert $test_sortedarray_get $test_sortedarray_remove $test_sortedarray_index_of $test_sortedarray_clear)
   (data $.rodata (i32.const 1024) ""test_sortedarray_insert\00test_sortedarray_get\00test_sortedarray_clear\00test_sortedarray_index_of\00test_sortedarray_remove\00test_sortedarray_new_free\00check_sorted\00../files/src/test-sortedarray.c\00*got == sorted_test_values[check_idx]\00*got == sorted_test_values[i]\00sorted_test_values[got_idx] == sorted_test_values[i]\00sortedarray_length(sa) == NUM_TEST_VALUES - 1 - REMOVE_IDX_2_LEN - REMOVE_IDX_3_REAL_LEN\00sa == NULL\00sortedarray_new(0, NULL) == NULL\00sortedarray_get(sa, 999999) == NULL\00sortedarray_get(NULL, 0) == NULL\00sortedarray_get(sa, sortedarray_length(sa)) == NULL\00got != NULL\00sa != NULL\00sortedarray_index_of(sa, &test_index) == -1\00sortedarray_index_of(NULL, NULL) == -1\00sortedarray_length(sa) == 0\00sortedarray_insert(NULL, NULL) == 0\00sortedarray_remove(sa, 999999) == 0\00sortedarray_remove_range(sa, 999999, 44) == 0\00sortedarray_remove_range(sa, sortedarray_length(sa), 3) == 0\00sortedarray_remove(NULL, 0) == 0\00sortedarray_remove(sa, sortedarray_length(sa)) == 0\00int_compare(sortedarray_get(sa, i - 1), sortedarray_get(sa, i)) <= 0\00sortedarray_remove_range(sa, REMOVE_IDX_3, REMOVE_IDX_3_LEN) != 0\00sortedarray_remove_range(sa, REMOVE_IDX_2, REMOVE_IDX_2_LEN) != 0\00sortedarray_remove(sa, REMOVE_IDX_1) != 0\00"")
   (data $.data (i32.const 2240) ""|\c0\01\00lx\04\00\94;\00\00\bf\d9\04\00\1e\1d\0d\00{d\0e\00i\a6\02\00\ec\c7\06\00\c2k\04\00\e7\ed\00\00\c7\c7\0a\00\8fL\06\00\d0\ca\ff\ffA\15\07\00$\0f\0e\00zE\06\00\c7\d0\01\00\88\de\0d\00:\0b\0d\00\1f}\03\00F\ac\02\00\ac\e7\0e\00\81\b3\0e\00\a4\99\00\00\85\cf\0b\00\f0\fb\08\00\d7[\00\00\8c\8f\05\00\01v\0c\00\81\03\01\00\a3\e9\0d\00\ac\cf\0b\00\f4\10\00\002J\ff\ffoJ\0b\00\95\ed\05\00\ed\d8\0a\00\efy\0c\00\97\e2\08\00c+\0f\00\f2N\0b\00\f7h\0c\00O\dc\02\00a>\02\00\a5<\0e\00\a5<\0e\00\a5<\0e\00\e1}\0b\004*\07\00\8fw\0d\00\ee\8a\0e\00>\8a\02\00\f7\9b\ff\ff\8e\b3\0b\008\0b\03\00\0b\1c\04\00\cb\b7\09\00\91\c2\00\00R\aa\09\00\b8W\02\00\9c\f7\04\00M>\00\00\02d\06\00\c0B\08\00\e2\7f\0e\00\e2\95\0c\00c\08\01\00^\e7\08\00ie\01\00D\b3\0c\00\a2\07\09\00\88\84\04\00\13y\01\00\cd=\0d\00\9f\ef\01\00\f7\ef\0a\00\0eu\0a\00\db\9b\0c\00aW\0a\00\cd\93\07\00\87\e5\ff\ffl.\0a\00\c9\d0\06\00U\8c\08\00\9d\1b\0b\00q[\0a\00\aa\88\06\00)\9e\0b\00\f1\fc\01\00\f7\0e\0b\00\b8\96\04\00B3\0b\00\e3\86\07\00\e8\bf\0b\00\926\07\000\e3\01\00\ef\98\04\00\db\ce\07\00\96\d9\05\00\aaQ\02\002J\ff\ff\f7\9b\ff\ff\d0\ca\ff\ff\87\e5\ff\ff\f4\10\00\00\94;\00\00M>\00\00\d7[\00\00\a4\99\00\00\91\c2\00\00\e7\ed\00\00\81\03\01\00c\08\01\00ie\01\00\13y\01\00|\c0\01\00\c7\d0\01\000\e3\01\00\9f\ef\01\00\f1\fc\01\00a>\02\00\aaQ\02\00\b8W\02\00>\8a\02\00i\a6\02\00F\ac\02\00O\dc\02\008\0b\03\00\1f}\03\00\0b\1c\04\00\c2k\04\00lx\04\00\88\84\04\00\b8\96\04\00\ef\98\04\00\bf\d9\04\00\9c\f7\04\00\8c\8f\05\00\96\d9\05\00\95\ed\05\00zE\06\00\8fL\06\00\02d\06\00\aa\88\06\00\ec\c7\06\00\c9\d0\06\00A\15\07\004*\07\00\926\07\00\e3\86\07\00\cd\93\07\00\db\ce\07\00\c0B\08\00U\8c\08\00\97\e2\08\00^\e7\08\00\f0\fb\08\00\a2\07\09\00R\aa\09\00\cb\b7\09\00l.\0a\00aW\0a\00q[\0a\00\0eu\0a\00\c7\c7\0a\00\ed\d8\0a\00\f7\ef\0a\00\f7\0e\0b\00\9d\1b\0b\00B3\0b\00oJ\0b\00\f2N\0b\00\e1}\0b\00)\9e\0b\00\8e\b3\0b\00\e8\bf\0b\00\85\cf\0b\00\ac\cf\0b\00\f7h\0c\00\01v\0c\00\efy\0c\00\e2\95\0c\00\db\9b\0c\00D\b3\0c\00:\0b\0d\00\1e\1d\0d\00\cd=\0d\00\8fw\0d\00\88\de\0d\00\a3\e9\0d\00$\0f\0e\00\a5<\0e\00\a5<\0e\00\a5<\0e\00{d\0e\00\e2\7f\0e\00\ee\8a\0e\00\81\b3\0e\00\ac\e7\0e\00c+\0f\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-test_list_iterate_bad_remove,,,null,"void test_list_iterate_bad_remove(void)
+test_list_iterate_bad_remove,,"Inserts an element at the beginning of a collection.
+Shifts existing elements forward and increments the length.",null,"void test_list_iterate_bad_remove(void)
 {
 	ListEntry *list;
 	ListIterator iter;
@@ -22131,7 +22229,8 @@ test_list_iterate_bad_remove,,,null,"void test_list_iterate_bad_remove(void)
     local.get 73
     global.set $__stack_pointer
     return)"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 
@@ -22211,7 +22310,8 @@ main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
   (elem (;0;) (i32.const 1) func $int_compare $test_sortedarray_new_free $test_sortedarray_insert $test_sortedarray_get $test_sortedarray_remove $test_sortedarray_index_of $test_sortedarray_clear)
   (data $.rodata (i32.const 1024) ""test_sortedarray_insert\00test_sortedarray_get\00test_sortedarray_clear\00test_sortedarray_index_of\00test_sortedarray_remove\00test_sortedarray_new_free\00check_sorted\00../files/src/test-sortedarray.c\00*got == sorted_test_values[check_idx]\00*got == sorted_test_values[i]\00sorted_test_values[got_idx] == sorted_test_values[i]\00sortedarray_length(sa) == NUM_TEST_VALUES - 1 - REMOVE_IDX_2_LEN - REMOVE_IDX_3_REAL_LEN\00sa == NULL\00sortedarray_new(0, NULL) == NULL\00sortedarray_get(sa, 999999) == NULL\00sortedarray_get(NULL, 0) == NULL\00sortedarray_get(sa, sortedarray_length(sa)) == NULL\00got != NULL\00sa != NULL\00sortedarray_index_of(sa, &test_index) == -1\00sortedarray_index_of(NULL, NULL) == -1\00sortedarray_length(sa) == 0\00sortedarray_insert(NULL, NULL) == 0\00sortedarray_remove(sa, 999999) == 0\00sortedarray_remove_range(sa, 999999, 44) == 0\00sortedarray_remove_range(sa, sortedarray_length(sa), 3) == 0\00sortedarray_remove(NULL, 0) == 0\00sortedarray_remove(sa, sortedarray_length(sa)) == 0\00int_compare(sortedarray_get(sa, i - 1), sortedarray_get(sa, i)) <= 0\00sortedarray_remove_range(sa, REMOVE_IDX_3, REMOVE_IDX_3_LEN) != 0\00sortedarray_remove_range(sa, REMOVE_IDX_2, REMOVE_IDX_2_LEN) != 0\00sortedarray_remove(sa, REMOVE_IDX_1) != 0\00"")
   (data $.data (i32.const 2240) ""|\c0\01\00lx\04\00\94;\00\00\bf\d9\04\00\1e\1d\0d\00{d\0e\00i\a6\02\00\ec\c7\06\00\c2k\04\00\e7\ed\00\00\c7\c7\0a\00\8fL\06\00\d0\ca\ff\ffA\15\07\00$\0f\0e\00zE\06\00\c7\d0\01\00\88\de\0d\00:\0b\0d\00\1f}\03\00F\ac\02\00\ac\e7\0e\00\81\b3\0e\00\a4\99\00\00\85\cf\0b\00\f0\fb\08\00\d7[\00\00\8c\8f\05\00\01v\0c\00\81\03\01\00\a3\e9\0d\00\ac\cf\0b\00\f4\10\00\002J\ff\ffoJ\0b\00\95\ed\05\00\ed\d8\0a\00\efy\0c\00\97\e2\08\00c+\0f\00\f2N\0b\00\f7h\0c\00O\dc\02\00a>\02\00\a5<\0e\00\a5<\0e\00\a5<\0e\00\e1}\0b\004*\07\00\8fw\0d\00\ee\8a\0e\00>\8a\02\00\f7\9b\ff\ff\8e\b3\0b\008\0b\03\00\0b\1c\04\00\cb\b7\09\00\91\c2\00\00R\aa\09\00\b8W\02\00\9c\f7\04\00M>\00\00\02d\06\00\c0B\08\00\e2\7f\0e\00\e2\95\0c\00c\08\01\00^\e7\08\00ie\01\00D\b3\0c\00\a2\07\09\00\88\84\04\00\13y\01\00\cd=\0d\00\9f\ef\01\00\f7\ef\0a\00\0eu\0a\00\db\9b\0c\00aW\0a\00\cd\93\07\00\87\e5\ff\ffl.\0a\00\c9\d0\06\00U\8c\08\00\9d\1b\0b\00q[\0a\00\aa\88\06\00)\9e\0b\00\f1\fc\01\00\f7\0e\0b\00\b8\96\04\00B3\0b\00\e3\86\07\00\e8\bf\0b\00\926\07\000\e3\01\00\ef\98\04\00\db\ce\07\00\96\d9\05\00\aaQ\02\002J\ff\ff\f7\9b\ff\ff\d0\ca\ff\ff\87\e5\ff\ff\f4\10\00\00\94;\00\00M>\00\00\d7[\00\00\a4\99\00\00\91\c2\00\00\e7\ed\00\00\81\03\01\00c\08\01\00ie\01\00\13y\01\00|\c0\01\00\c7\d0\01\000\e3\01\00\9f\ef\01\00\f1\fc\01\00a>\02\00\aaQ\02\00\b8W\02\00>\8a\02\00i\a6\02\00F\ac\02\00O\dc\02\008\0b\03\00\1f}\03\00\0b\1c\04\00\c2k\04\00lx\04\00\88\84\04\00\b8\96\04\00\ef\98\04\00\bf\d9\04\00\9c\f7\04\00\8c\8f\05\00\96\d9\05\00\95\ed\05\00zE\06\00\8fL\06\00\02d\06\00\aa\88\06\00\ec\c7\06\00\c9\d0\06\00A\15\07\004*\07\00\926\07\00\e3\86\07\00\cd\93\07\00\db\ce\07\00\c0B\08\00U\8c\08\00\97\e2\08\00^\e7\08\00\f0\fb\08\00\a2\07\09\00R\aa\09\00\cb\b7\09\00l.\0a\00aW\0a\00q[\0a\00\0eu\0a\00\c7\c7\0a\00\ed\d8\0a\00\f7\ef\0a\00\f7\0e\0b\00\9d\1b\0b\00B3\0b\00oJ\0b\00\f2N\0b\00\e1}\0b\00)\9e\0b\00\8e\b3\0b\00\e8\bf\0b\00\85\cf\0b\00\ac\cf\0b\00\f7h\0c\00\01v\0c\00\efy\0c\00\e2\95\0c\00\db\9b\0c\00D\b3\0c\00:\0b\0d\00\1e\1d\0d\00\cd=\0d\00\8fw\0d\00\88\de\0d\00\a3\e9\0d\00$\0f\0e\00\a5<\0e\00\a5<\0e\00\a5<\0e\00{d\0e\00\e2\7f\0e\00\ee\8a\0e\00\81\b3\0e\00\ac\e7\0e\00c+\0f\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-test_queue_new_free,,,null,"void test_queue_new_free(void)
+test_queue_new_free,,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"void test_queue_new_free(void)
 {
 	int i;
 	Queue *queue;
@@ -22366,7 +22466,8 @@ test_queue_new_free,,,null,"void test_queue_new_free(void)
     local.get 30
     global.set $__stack_pointer
     return)"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 
@@ -22446,7 +22547,8 @@ main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
   (elem (;0;) (i32.const 1) func $int_compare $test_sortedarray_new_free $test_sortedarray_insert $test_sortedarray_get $test_sortedarray_remove $test_sortedarray_index_of $test_sortedarray_clear)
   (data $.rodata (i32.const 1024) ""test_sortedarray_insert\00test_sortedarray_get\00test_sortedarray_clear\00test_sortedarray_index_of\00test_sortedarray_remove\00test_sortedarray_new_free\00check_sorted\00../files/src/test-sortedarray.c\00*got == sorted_test_values[check_idx]\00*got == sorted_test_values[i]\00sorted_test_values[got_idx] == sorted_test_values[i]\00sortedarray_length(sa) == NUM_TEST_VALUES - 1 - REMOVE_IDX_2_LEN - REMOVE_IDX_3_REAL_LEN\00sa == NULL\00sortedarray_new(0, NULL) == NULL\00sortedarray_get(sa, 999999) == NULL\00sortedarray_get(NULL, 0) == NULL\00sortedarray_get(sa, sortedarray_length(sa)) == NULL\00got != NULL\00sa != NULL\00sortedarray_index_of(sa, &test_index) == -1\00sortedarray_index_of(NULL, NULL) == -1\00sortedarray_length(sa) == 0\00sortedarray_insert(NULL, NULL) == 0\00sortedarray_remove(sa, 999999) == 0\00sortedarray_remove_range(sa, 999999, 44) == 0\00sortedarray_remove_range(sa, sortedarray_length(sa), 3) == 0\00sortedarray_remove(NULL, 0) == 0\00sortedarray_remove(sa, sortedarray_length(sa)) == 0\00int_compare(sortedarray_get(sa, i - 1), sortedarray_get(sa, i)) <= 0\00sortedarray_remove_range(sa, REMOVE_IDX_3, REMOVE_IDX_3_LEN) != 0\00sortedarray_remove_range(sa, REMOVE_IDX_2, REMOVE_IDX_2_LEN) != 0\00sortedarray_remove(sa, REMOVE_IDX_1) != 0\00"")
   (data $.data (i32.const 2240) ""|\c0\01\00lx\04\00\94;\00\00\bf\d9\04\00\1e\1d\0d\00{d\0e\00i\a6\02\00\ec\c7\06\00\c2k\04\00\e7\ed\00\00\c7\c7\0a\00\8fL\06\00\d0\ca\ff\ffA\15\07\00$\0f\0e\00zE\06\00\c7\d0\01\00\88\de\0d\00:\0b\0d\00\1f}\03\00F\ac\02\00\ac\e7\0e\00\81\b3\0e\00\a4\99\00\00\85\cf\0b\00\f0\fb\08\00\d7[\00\00\8c\8f\05\00\01v\0c\00\81\03\01\00\a3\e9\0d\00\ac\cf\0b\00\f4\10\00\002J\ff\ffoJ\0b\00\95\ed\05\00\ed\d8\0a\00\efy\0c\00\97\e2\08\00c+\0f\00\f2N\0b\00\f7h\0c\00O\dc\02\00a>\02\00\a5<\0e\00\a5<\0e\00\a5<\0e\00\e1}\0b\004*\07\00\8fw\0d\00\ee\8a\0e\00>\8a\02\00\f7\9b\ff\ff\8e\b3\0b\008\0b\03\00\0b\1c\04\00\cb\b7\09\00\91\c2\00\00R\aa\09\00\b8W\02\00\9c\f7\04\00M>\00\00\02d\06\00\c0B\08\00\e2\7f\0e\00\e2\95\0c\00c\08\01\00^\e7\08\00ie\01\00D\b3\0c\00\a2\07\09\00\88\84\04\00\13y\01\00\cd=\0d\00\9f\ef\01\00\f7\ef\0a\00\0eu\0a\00\db\9b\0c\00aW\0a\00\cd\93\07\00\87\e5\ff\ffl.\0a\00\c9\d0\06\00U\8c\08\00\9d\1b\0b\00q[\0a\00\aa\88\06\00)\9e\0b\00\f1\fc\01\00\f7\0e\0b\00\b8\96\04\00B3\0b\00\e3\86\07\00\e8\bf\0b\00\926\07\000\e3\01\00\ef\98\04\00\db\ce\07\00\96\d9\05\00\aaQ\02\002J\ff\ff\f7\9b\ff\ff\d0\ca\ff\ff\87\e5\ff\ff\f4\10\00\00\94;\00\00M>\00\00\d7[\00\00\a4\99\00\00\91\c2\00\00\e7\ed\00\00\81\03\01\00c\08\01\00ie\01\00\13y\01\00|\c0\01\00\c7\d0\01\000\e3\01\00\9f\ef\01\00\f1\fc\01\00a>\02\00\aaQ\02\00\b8W\02\00>\8a\02\00i\a6\02\00F\ac\02\00O\dc\02\008\0b\03\00\1f}\03\00\0b\1c\04\00\c2k\04\00lx\04\00\88\84\04\00\b8\96\04\00\ef\98\04\00\bf\d9\04\00\9c\f7\04\00\8c\8f\05\00\96\d9\05\00\95\ed\05\00zE\06\00\8fL\06\00\02d\06\00\aa\88\06\00\ec\c7\06\00\c9\d0\06\00A\15\07\004*\07\00\926\07\00\e3\86\07\00\cd\93\07\00\db\ce\07\00\c0B\08\00U\8c\08\00\97\e2\08\00^\e7\08\00\f0\fb\08\00\a2\07\09\00R\aa\09\00\cb\b7\09\00l.\0a\00aW\0a\00q[\0a\00\0eu\0a\00\c7\c7\0a\00\ed\d8\0a\00\f7\ef\0a\00\f7\0e\0b\00\9d\1b\0b\00B3\0b\00oJ\0b\00\f2N\0b\00\e1}\0b\00)\9e\0b\00\8e\b3\0b\00\e8\bf\0b\00\85\cf\0b\00\ac\cf\0b\00\f7h\0c\00\01v\0c\00\efy\0c\00\e2\95\0c\00\db\9b\0c\00D\b3\0c\00:\0b\0d\00\1e\1d\0d\00\cd=\0d\00\8fw\0d\00\88\de\0d\00\a3\e9\0d\00$\0f\0e\00\a5<\0e\00\a5<\0e\00\a5<\0e\00{d\0e\00\e2\7f\0e\00\ee\8a\0e\00\81\b3\0e\00\ac\e7\0e\00c+\0f\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-print_tree,"RBTreeNode *node, int depth",,null,"static void print_tree(RBTreeNode *node, int depth)
+print_tree,"RBTreeNode *node, int depth","Performs an action and returns 0 on failure or 1 on success.
+Typical for functions that modify data structures and need to signal status.",null,"static void print_tree(RBTreeNode *node, int depth)
 {
 	int *value;
 	int i;
@@ -22466,7 +22568,8 @@ print_tree,"RBTreeNode *node, int depth",,null,"static void print_tree(RBTreeNod
 
 	print_tree(rb_tree_node_child(node, RB_TREE_NODE_RIGHT), depth + 1);
 }",
-find_subtree_height,RBTreeNode *node,,0 | left_height + 1 | right_height + 1,"
+find_subtree_height,RBTreeNode *node,"Performs an action and returns 0 on failure or 1 on success.
+Typical for functions that modify data structures and need to signal status.",0 | left_height + 1 | right_height + 1,"
 int find_subtree_height(RBTreeNode *node)
 {
 	RBTreeNode *left_subtree;
@@ -22631,7 +22734,8 @@ int find_subtree_height(RBTreeNode *node)
     global.set $__stack_pointer
     local.get 31
     return)"
-validate_tree,RBTree *tree,,null,"
+validate_tree,RBTree *tree,"Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",null,"
 void validate_tree(RBTree *tree)
 {
 }","(func $validate_tree (type 4) (param i32)
@@ -22746,7 +22850,8 @@ void validate_tree(RBTree *tree)
     local.get 27
     global.set $__stack_pointer
     return)"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 	return 0;
@@ -22825,7 +22930,8 @@ main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
   (elem (;0;) (i32.const 1) func $int_compare $test_sortedarray_new_free $test_sortedarray_insert $test_sortedarray_get $test_sortedarray_remove $test_sortedarray_index_of $test_sortedarray_clear)
   (data $.rodata (i32.const 1024) ""test_sortedarray_insert\00test_sortedarray_get\00test_sortedarray_clear\00test_sortedarray_index_of\00test_sortedarray_remove\00test_sortedarray_new_free\00check_sorted\00../files/src/test-sortedarray.c\00*got == sorted_test_values[check_idx]\00*got == sorted_test_values[i]\00sorted_test_values[got_idx] == sorted_test_values[i]\00sortedarray_length(sa) == NUM_TEST_VALUES - 1 - REMOVE_IDX_2_LEN - REMOVE_IDX_3_REAL_LEN\00sa == NULL\00sortedarray_new(0, NULL) == NULL\00sortedarray_get(sa, 999999) == NULL\00sortedarray_get(NULL, 0) == NULL\00sortedarray_get(sa, sortedarray_length(sa)) == NULL\00got != NULL\00sa != NULL\00sortedarray_index_of(sa, &test_index) == -1\00sortedarray_index_of(NULL, NULL) == -1\00sortedarray_length(sa) == 0\00sortedarray_insert(NULL, NULL) == 0\00sortedarray_remove(sa, 999999) == 0\00sortedarray_remove_range(sa, 999999, 44) == 0\00sortedarray_remove_range(sa, sortedarray_length(sa), 3) == 0\00sortedarray_remove(NULL, 0) == 0\00sortedarray_remove(sa, sortedarray_length(sa)) == 0\00int_compare(sortedarray_get(sa, i - 1), sortedarray_get(sa, i)) <= 0\00sortedarray_remove_range(sa, REMOVE_IDX_3, REMOVE_IDX_3_LEN) != 0\00sortedarray_remove_range(sa, REMOVE_IDX_2, REMOVE_IDX_2_LEN) != 0\00sortedarray_remove(sa, REMOVE_IDX_1) != 0\00"")
   (data $.data (i32.const 2240) ""|\c0\01\00lx\04\00\94;\00\00\bf\d9\04\00\1e\1d\0d\00{d\0e\00i\a6\02\00\ec\c7\06\00\c2k\04\00\e7\ed\00\00\c7\c7\0a\00\8fL\06\00\d0\ca\ff\ffA\15\07\00$\0f\0e\00zE\06\00\c7\d0\01\00\88\de\0d\00:\0b\0d\00\1f}\03\00F\ac\02\00\ac\e7\0e\00\81\b3\0e\00\a4\99\00\00\85\cf\0b\00\f0\fb\08\00\d7[\00\00\8c\8f\05\00\01v\0c\00\81\03\01\00\a3\e9\0d\00\ac\cf\0b\00\f4\10\00\002J\ff\ffoJ\0b\00\95\ed\05\00\ed\d8\0a\00\efy\0c\00\97\e2\08\00c+\0f\00\f2N\0b\00\f7h\0c\00O\dc\02\00a>\02\00\a5<\0e\00\a5<\0e\00\a5<\0e\00\e1}\0b\004*\07\00\8fw\0d\00\ee\8a\0e\00>\8a\02\00\f7\9b\ff\ff\8e\b3\0b\008\0b\03\00\0b\1c\04\00\cb\b7\09\00\91\c2\00\00R\aa\09\00\b8W\02\00\9c\f7\04\00M>\00\00\02d\06\00\c0B\08\00\e2\7f\0e\00\e2\95\0c\00c\08\01\00^\e7\08\00ie\01\00D\b3\0c\00\a2\07\09\00\88\84\04\00\13y\01\00\cd=\0d\00\9f\ef\01\00\f7\ef\0a\00\0eu\0a\00\db\9b\0c\00aW\0a\00\cd\93\07\00\87\e5\ff\ffl.\0a\00\c9\d0\06\00U\8c\08\00\9d\1b\0b\00q[\0a\00\aa\88\06\00)\9e\0b\00\f1\fc\01\00\f7\0e\0b\00\b8\96\04\00B3\0b\00\e3\86\07\00\e8\bf\0b\00\926\07\000\e3\01\00\ef\98\04\00\db\ce\07\00\96\d9\05\00\aaQ\02\002J\ff\ff\f7\9b\ff\ff\d0\ca\ff\ff\87\e5\ff\ff\f4\10\00\00\94;\00\00M>\00\00\d7[\00\00\a4\99\00\00\91\c2\00\00\e7\ed\00\00\81\03\01\00c\08\01\00ie\01\00\13y\01\00|\c0\01\00\c7\d0\01\000\e3\01\00\9f\ef\01\00\f1\fc\01\00a>\02\00\aaQ\02\00\b8W\02\00>\8a\02\00i\a6\02\00F\ac\02\00O\dc\02\008\0b\03\00\1f}\03\00\0b\1c\04\00\c2k\04\00lx\04\00\88\84\04\00\b8\96\04\00\ef\98\04\00\bf\d9\04\00\9c\f7\04\00\8c\8f\05\00\96\d9\05\00\95\ed\05\00zE\06\00\8fL\06\00\02d\06\00\aa\88\06\00\ec\c7\06\00\c9\d0\06\00A\15\07\004*\07\00\926\07\00\e3\86\07\00\cd\93\07\00\db\ce\07\00\c0B\08\00U\8c\08\00\97\e2\08\00^\e7\08\00\f0\fb\08\00\a2\07\09\00R\aa\09\00\cb\b7\09\00l.\0a\00aW\0a\00q[\0a\00\0eu\0a\00\c7\c7\0a\00\ed\d8\0a\00\f7\ef\0a\00\f7\0e\0b\00\9d\1b\0b\00B3\0b\00oJ\0b\00\f2N\0b\00\e1}\0b\00)\9e\0b\00\8e\b3\0b\00\e8\bf\0b\00\85\cf\0b\00\ac\cf\0b\00\f7h\0c\00\01v\0c\00\efy\0c\00\e2\95\0c\00\db\9b\0c\00D\b3\0c\00:\0b\0d\00\1e\1d\0d\00\cd=\0d\00\8fw\0d\00\88\de\0d\00\a3\e9\0d\00$\0f\0e\00\a5<\0e\00\a5<\0e\00\a5<\0e\00{d\0e\00\e2\7f\0e\00\ee\8a\0e\00\81\b3\0e\00\ac\e7\0e\00c+\0f\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-test_set_iterating_remove,,,null,"void test_set_iterating_remove(void)
+test_set_iterating_remove,,"Frees allocated memory associated with the data structure or object.
+Performs NULL checks before freeing to avoid invalid free operations.",null,"void test_set_iterating_remove(void)
 {
 	Set *set;
 	SetIterator iterator;
@@ -23109,7 +23215,8 @@ test_set_iterating_remove,,,null,"void test_set_iterating_remove(void)
     local.get 62
     global.set $__stack_pointer
     return)"
-test_set_out_of_memory,,,null,"void test_set_out_of_memory(void)
+test_set_out_of_memory,,"Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",null,"void test_set_out_of_memory(void)
 {
 	Set *set;
 	int values[66];
@@ -23533,7 +23640,8 @@ test_set_out_of_memory,,,null,"void test_set_out_of_memory(void)
     local.get 101
     global.set $__stack_pointer
     return)"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 
@@ -23613,7 +23721,8 @@ main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
   (elem (;0;) (i32.const 1) func $int_compare $test_sortedarray_new_free $test_sortedarray_insert $test_sortedarray_get $test_sortedarray_remove $test_sortedarray_index_of $test_sortedarray_clear)
   (data $.rodata (i32.const 1024) ""test_sortedarray_insert\00test_sortedarray_get\00test_sortedarray_clear\00test_sortedarray_index_of\00test_sortedarray_remove\00test_sortedarray_new_free\00check_sorted\00../files/src/test-sortedarray.c\00*got == sorted_test_values[check_idx]\00*got == sorted_test_values[i]\00sorted_test_values[got_idx] == sorted_test_values[i]\00sortedarray_length(sa) == NUM_TEST_VALUES - 1 - REMOVE_IDX_2_LEN - REMOVE_IDX_3_REAL_LEN\00sa == NULL\00sortedarray_new(0, NULL) == NULL\00sortedarray_get(sa, 999999) == NULL\00sortedarray_get(NULL, 0) == NULL\00sortedarray_get(sa, sortedarray_length(sa)) == NULL\00got != NULL\00sa != NULL\00sortedarray_index_of(sa, &test_index) == -1\00sortedarray_index_of(NULL, NULL) == -1\00sortedarray_length(sa) == 0\00sortedarray_insert(NULL, NULL) == 0\00sortedarray_remove(sa, 999999) == 0\00sortedarray_remove_range(sa, 999999, 44) == 0\00sortedarray_remove_range(sa, sortedarray_length(sa), 3) == 0\00sortedarray_remove(NULL, 0) == 0\00sortedarray_remove(sa, sortedarray_length(sa)) == 0\00int_compare(sortedarray_get(sa, i - 1), sortedarray_get(sa, i)) <= 0\00sortedarray_remove_range(sa, REMOVE_IDX_3, REMOVE_IDX_3_LEN) != 0\00sortedarray_remove_range(sa, REMOVE_IDX_2, REMOVE_IDX_2_LEN) != 0\00sortedarray_remove(sa, REMOVE_IDX_1) != 0\00"")
   (data $.data (i32.const 2240) ""|\c0\01\00lx\04\00\94;\00\00\bf\d9\04\00\1e\1d\0d\00{d\0e\00i\a6\02\00\ec\c7\06\00\c2k\04\00\e7\ed\00\00\c7\c7\0a\00\8fL\06\00\d0\ca\ff\ffA\15\07\00$\0f\0e\00zE\06\00\c7\d0\01\00\88\de\0d\00:\0b\0d\00\1f}\03\00F\ac\02\00\ac\e7\0e\00\81\b3\0e\00\a4\99\00\00\85\cf\0b\00\f0\fb\08\00\d7[\00\00\8c\8f\05\00\01v\0c\00\81\03\01\00\a3\e9\0d\00\ac\cf\0b\00\f4\10\00\002J\ff\ffoJ\0b\00\95\ed\05\00\ed\d8\0a\00\efy\0c\00\97\e2\08\00c+\0f\00\f2N\0b\00\f7h\0c\00O\dc\02\00a>\02\00\a5<\0e\00\a5<\0e\00\a5<\0e\00\e1}\0b\004*\07\00\8fw\0d\00\ee\8a\0e\00>\8a\02\00\f7\9b\ff\ff\8e\b3\0b\008\0b\03\00\0b\1c\04\00\cb\b7\09\00\91\c2\00\00R\aa\09\00\b8W\02\00\9c\f7\04\00M>\00\00\02d\06\00\c0B\08\00\e2\7f\0e\00\e2\95\0c\00c\08\01\00^\e7\08\00ie\01\00D\b3\0c\00\a2\07\09\00\88\84\04\00\13y\01\00\cd=\0d\00\9f\ef\01\00\f7\ef\0a\00\0eu\0a\00\db\9b\0c\00aW\0a\00\cd\93\07\00\87\e5\ff\ffl.\0a\00\c9\d0\06\00U\8c\08\00\9d\1b\0b\00q[\0a\00\aa\88\06\00)\9e\0b\00\f1\fc\01\00\f7\0e\0b\00\b8\96\04\00B3\0b\00\e3\86\07\00\e8\bf\0b\00\926\07\000\e3\01\00\ef\98\04\00\db\ce\07\00\96\d9\05\00\aaQ\02\002J\ff\ff\f7\9b\ff\ff\d0\ca\ff\ff\87\e5\ff\ff\f4\10\00\00\94;\00\00M>\00\00\d7[\00\00\a4\99\00\00\91\c2\00\00\e7\ed\00\00\81\03\01\00c\08\01\00ie\01\00\13y\01\00|\c0\01\00\c7\d0\01\000\e3\01\00\9f\ef\01\00\f1\fc\01\00a>\02\00\aaQ\02\00\b8W\02\00>\8a\02\00i\a6\02\00F\ac\02\00O\dc\02\008\0b\03\00\1f}\03\00\0b\1c\04\00\c2k\04\00lx\04\00\88\84\04\00\b8\96\04\00\ef\98\04\00\bf\d9\04\00\9c\f7\04\00\8c\8f\05\00\96\d9\05\00\95\ed\05\00zE\06\00\8fL\06\00\02d\06\00\aa\88\06\00\ec\c7\06\00\c9\d0\06\00A\15\07\004*\07\00\926\07\00\e3\86\07\00\cd\93\07\00\db\ce\07\00\c0B\08\00U\8c\08\00\97\e2\08\00^\e7\08\00\f0\fb\08\00\a2\07\09\00R\aa\09\00\cb\b7\09\00l.\0a\00aW\0a\00q[\0a\00\0eu\0a\00\c7\c7\0a\00\ed\d8\0a\00\f7\ef\0a\00\f7\0e\0b\00\9d\1b\0b\00B3\0b\00oJ\0b\00\f2N\0b\00\e1}\0b\00)\9e\0b\00\8e\b3\0b\00\e8\bf\0b\00\85\cf\0b\00\ac\cf\0b\00\f7h\0c\00\01v\0c\00\efy\0c\00\e2\95\0c\00\db\9b\0c\00D\b3\0c\00:\0b\0d\00\1e\1d\0d\00\cd=\0d\00\8fw\0d\00\88\de\0d\00\a3\e9\0d\00$\0f\0e\00\a5<\0e\00\a5<\0e\00\a5<\0e\00{d\0e\00\e2\7f\0e\00\ee\8a\0e\00\81\b3\0e\00\ac\e7\0e\00c+\0f\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-test_slist_iterate_bad_remove,,,null,"void test_slist_iterate_bad_remove(void)
+test_slist_iterate_bad_remove,,"Inserts an element at the beginning of a collection.
+Shifts existing elements forward and increments the length.",null,"void test_slist_iterate_bad_remove(void)
 {
 	SListEntry *list;
 	SListIterator iter;
@@ -23892,7 +24001,8 @@ test_slist_iterate_bad_remove,,,null,"void test_slist_iterate_bad_remove(void)
     local.get 64
     global.set $__stack_pointer
     return)"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 
@@ -23972,7 +24082,8 @@ main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
   (elem (;0;) (i32.const 1) func $int_compare $test_sortedarray_new_free $test_sortedarray_insert $test_sortedarray_get $test_sortedarray_remove $test_sortedarray_index_of $test_sortedarray_clear)
   (data $.rodata (i32.const 1024) ""test_sortedarray_insert\00test_sortedarray_get\00test_sortedarray_clear\00test_sortedarray_index_of\00test_sortedarray_remove\00test_sortedarray_new_free\00check_sorted\00../files/src/test-sortedarray.c\00*got == sorted_test_values[check_idx]\00*got == sorted_test_values[i]\00sorted_test_values[got_idx] == sorted_test_values[i]\00sortedarray_length(sa) == NUM_TEST_VALUES - 1 - REMOVE_IDX_2_LEN - REMOVE_IDX_3_REAL_LEN\00sa == NULL\00sortedarray_new(0, NULL) == NULL\00sortedarray_get(sa, 999999) == NULL\00sortedarray_get(NULL, 0) == NULL\00sortedarray_get(sa, sortedarray_length(sa)) == NULL\00got != NULL\00sa != NULL\00sortedarray_index_of(sa, &test_index) == -1\00sortedarray_index_of(NULL, NULL) == -1\00sortedarray_length(sa) == 0\00sortedarray_insert(NULL, NULL) == 0\00sortedarray_remove(sa, 999999) == 0\00sortedarray_remove_range(sa, 999999, 44) == 0\00sortedarray_remove_range(sa, sortedarray_length(sa), 3) == 0\00sortedarray_remove(NULL, 0) == 0\00sortedarray_remove(sa, sortedarray_length(sa)) == 0\00int_compare(sortedarray_get(sa, i - 1), sortedarray_get(sa, i)) <= 0\00sortedarray_remove_range(sa, REMOVE_IDX_3, REMOVE_IDX_3_LEN) != 0\00sortedarray_remove_range(sa, REMOVE_IDX_2, REMOVE_IDX_2_LEN) != 0\00sortedarray_remove(sa, REMOVE_IDX_1) != 0\00"")
   (data $.data (i32.const 2240) ""|\c0\01\00lx\04\00\94;\00\00\bf\d9\04\00\1e\1d\0d\00{d\0e\00i\a6\02\00\ec\c7\06\00\c2k\04\00\e7\ed\00\00\c7\c7\0a\00\8fL\06\00\d0\ca\ff\ffA\15\07\00$\0f\0e\00zE\06\00\c7\d0\01\00\88\de\0d\00:\0b\0d\00\1f}\03\00F\ac\02\00\ac\e7\0e\00\81\b3\0e\00\a4\99\00\00\85\cf\0b\00\f0\fb\08\00\d7[\00\00\8c\8f\05\00\01v\0c\00\81\03\01\00\a3\e9\0d\00\ac\cf\0b\00\f4\10\00\002J\ff\ffoJ\0b\00\95\ed\05\00\ed\d8\0a\00\efy\0c\00\97\e2\08\00c+\0f\00\f2N\0b\00\f7h\0c\00O\dc\02\00a>\02\00\a5<\0e\00\a5<\0e\00\a5<\0e\00\e1}\0b\004*\07\00\8fw\0d\00\ee\8a\0e\00>\8a\02\00\f7\9b\ff\ff\8e\b3\0b\008\0b\03\00\0b\1c\04\00\cb\b7\09\00\91\c2\00\00R\aa\09\00\b8W\02\00\9c\f7\04\00M>\00\00\02d\06\00\c0B\08\00\e2\7f\0e\00\e2\95\0c\00c\08\01\00^\e7\08\00ie\01\00D\b3\0c\00\a2\07\09\00\88\84\04\00\13y\01\00\cd=\0d\00\9f\ef\01\00\f7\ef\0a\00\0eu\0a\00\db\9b\0c\00aW\0a\00\cd\93\07\00\87\e5\ff\ffl.\0a\00\c9\d0\06\00U\8c\08\00\9d\1b\0b\00q[\0a\00\aa\88\06\00)\9e\0b\00\f1\fc\01\00\f7\0e\0b\00\b8\96\04\00B3\0b\00\e3\86\07\00\e8\bf\0b\00\926\07\000\e3\01\00\ef\98\04\00\db\ce\07\00\96\d9\05\00\aaQ\02\002J\ff\ff\f7\9b\ff\ff\d0\ca\ff\ff\87\e5\ff\ff\f4\10\00\00\94;\00\00M>\00\00\d7[\00\00\a4\99\00\00\91\c2\00\00\e7\ed\00\00\81\03\01\00c\08\01\00ie\01\00\13y\01\00|\c0\01\00\c7\d0\01\000\e3\01\00\9f\ef\01\00\f1\fc\01\00a>\02\00\aaQ\02\00\b8W\02\00>\8a\02\00i\a6\02\00F\ac\02\00O\dc\02\008\0b\03\00\1f}\03\00\0b\1c\04\00\c2k\04\00lx\04\00\88\84\04\00\b8\96\04\00\ef\98\04\00\bf\d9\04\00\9c\f7\04\00\8c\8f\05\00\96\d9\05\00\95\ed\05\00zE\06\00\8fL\06\00\02d\06\00\aa\88\06\00\ec\c7\06\00\c9\d0\06\00A\15\07\004*\07\00\926\07\00\e3\86\07\00\cd\93\07\00\db\ce\07\00\c0B\08\00U\8c\08\00\97\e2\08\00^\e7\08\00\f0\fb\08\00\a2\07\09\00R\aa\09\00\cb\b7\09\00l.\0a\00aW\0a\00q[\0a\00\0eu\0a\00\c7\c7\0a\00\ed\d8\0a\00\f7\ef\0a\00\f7\0e\0b\00\9d\1b\0b\00B3\0b\00oJ\0b\00\f2N\0b\00\e1}\0b\00)\9e\0b\00\8e\b3\0b\00\e8\bf\0b\00\85\cf\0b\00\ac\cf\0b\00\f7h\0c\00\01v\0c\00\efy\0c\00\e2\95\0c\00\db\9b\0c\00D\b3\0c\00:\0b\0d\00\1e\1d\0d\00\cd=\0d\00\8fw\0d\00\88\de\0d\00\a3\e9\0d\00$\0f\0e\00\a5<\0e\00\a5<\0e\00\a5<\0e\00{d\0e\00\e2\7f\0e\00\ee\8a\0e\00\81\b3\0e\00\ac\e7\0e\00c+\0f\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 
@@ -24052,7 +24163,8 @@ main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
   (elem (;0;) (i32.const 1) func $int_compare $test_sortedarray_new_free $test_sortedarray_insert $test_sortedarray_get $test_sortedarray_remove $test_sortedarray_index_of $test_sortedarray_clear)
   (data $.rodata (i32.const 1024) ""test_sortedarray_insert\00test_sortedarray_get\00test_sortedarray_clear\00test_sortedarray_index_of\00test_sortedarray_remove\00test_sortedarray_new_free\00check_sorted\00../files/src/test-sortedarray.c\00*got == sorted_test_values[check_idx]\00*got == sorted_test_values[i]\00sorted_test_values[got_idx] == sorted_test_values[i]\00sortedarray_length(sa) == NUM_TEST_VALUES - 1 - REMOVE_IDX_2_LEN - REMOVE_IDX_3_REAL_LEN\00sa == NULL\00sortedarray_new(0, NULL) == NULL\00sortedarray_get(sa, 999999) == NULL\00sortedarray_get(NULL, 0) == NULL\00sortedarray_get(sa, sortedarray_length(sa)) == NULL\00got != NULL\00sa != NULL\00sortedarray_index_of(sa, &test_index) == -1\00sortedarray_index_of(NULL, NULL) == -1\00sortedarray_length(sa) == 0\00sortedarray_insert(NULL, NULL) == 0\00sortedarray_remove(sa, 999999) == 0\00sortedarray_remove_range(sa, 999999, 44) == 0\00sortedarray_remove_range(sa, sortedarray_length(sa), 3) == 0\00sortedarray_remove(NULL, 0) == 0\00sortedarray_remove(sa, sortedarray_length(sa)) == 0\00int_compare(sortedarray_get(sa, i - 1), sortedarray_get(sa, i)) <= 0\00sortedarray_remove_range(sa, REMOVE_IDX_3, REMOVE_IDX_3_LEN) != 0\00sortedarray_remove_range(sa, REMOVE_IDX_2, REMOVE_IDX_2_LEN) != 0\00sortedarray_remove(sa, REMOVE_IDX_1) != 0\00"")
   (data $.data (i32.const 2240) ""|\c0\01\00lx\04\00\94;\00\00\bf\d9\04\00\1e\1d\0d\00{d\0e\00i\a6\02\00\ec\c7\06\00\c2k\04\00\e7\ed\00\00\c7\c7\0a\00\8fL\06\00\d0\ca\ff\ffA\15\07\00$\0f\0e\00zE\06\00\c7\d0\01\00\88\de\0d\00:\0b\0d\00\1f}\03\00F\ac\02\00\ac\e7\0e\00\81\b3\0e\00\a4\99\00\00\85\cf\0b\00\f0\fb\08\00\d7[\00\00\8c\8f\05\00\01v\0c\00\81\03\01\00\a3\e9\0d\00\ac\cf\0b\00\f4\10\00\002J\ff\ffoJ\0b\00\95\ed\05\00\ed\d8\0a\00\efy\0c\00\97\e2\08\00c+\0f\00\f2N\0b\00\f7h\0c\00O\dc\02\00a>\02\00\a5<\0e\00\a5<\0e\00\a5<\0e\00\e1}\0b\004*\07\00\8fw\0d\00\ee\8a\0e\00>\8a\02\00\f7\9b\ff\ff\8e\b3\0b\008\0b\03\00\0b\1c\04\00\cb\b7\09\00\91\c2\00\00R\aa\09\00\b8W\02\00\9c\f7\04\00M>\00\00\02d\06\00\c0B\08\00\e2\7f\0e\00\e2\95\0c\00c\08\01\00^\e7\08\00ie\01\00D\b3\0c\00\a2\07\09\00\88\84\04\00\13y\01\00\cd=\0d\00\9f\ef\01\00\f7\ef\0a\00\0eu\0a\00\db\9b\0c\00aW\0a\00\cd\93\07\00\87\e5\ff\ffl.\0a\00\c9\d0\06\00U\8c\08\00\9d\1b\0b\00q[\0a\00\aa\88\06\00)\9e\0b\00\f1\fc\01\00\f7\0e\0b\00\b8\96\04\00B3\0b\00\e3\86\07\00\e8\bf\0b\00\926\07\000\e3\01\00\ef\98\04\00\db\ce\07\00\96\d9\05\00\aaQ\02\002J\ff\ff\f7\9b\ff\ff\d0\ca\ff\ff\87\e5\ff\ff\f4\10\00\00\94;\00\00M>\00\00\d7[\00\00\a4\99\00\00\91\c2\00\00\e7\ed\00\00\81\03\01\00c\08\01\00ie\01\00\13y\01\00|\c0\01\00\c7\d0\01\000\e3\01\00\9f\ef\01\00\f1\fc\01\00a>\02\00\aaQ\02\00\b8W\02\00>\8a\02\00i\a6\02\00F\ac\02\00O\dc\02\008\0b\03\00\1f}\03\00\0b\1c\04\00\c2k\04\00lx\04\00\88\84\04\00\b8\96\04\00\ef\98\04\00\bf\d9\04\00\9c\f7\04\00\8c\8f\05\00\96\d9\05\00\95\ed\05\00zE\06\00\8fL\06\00\02d\06\00\aa\88\06\00\ec\c7\06\00\c9\d0\06\00A\15\07\004*\07\00\926\07\00\e3\86\07\00\cd\93\07\00\db\ce\07\00\c0B\08\00U\8c\08\00\97\e2\08\00^\e7\08\00\f0\fb\08\00\a2\07\09\00R\aa\09\00\cb\b7\09\00l.\0a\00aW\0a\00q[\0a\00\0eu\0a\00\c7\c7\0a\00\ed\d8\0a\00\f7\ef\0a\00\f7\0e\0b\00\9d\1b\0b\00B3\0b\00oJ\0b\00\f2N\0b\00\e1}\0b\00)\9e\0b\00\8e\b3\0b\00\e8\bf\0b\00\85\cf\0b\00\ac\cf\0b\00\f7h\0c\00\01v\0c\00\efy\0c\00\e2\95\0c\00\db\9b\0c\00D\b3\0c\00:\0b\0d\00\1e\1d\0d\00\cd=\0d\00\8fw\0d\00\88\de\0d\00\a3\e9\0d\00$\0f\0e\00\a5<\0e\00\a5<\0e\00\a5<\0e\00{d\0e\00\e2\7f\0e\00\ee\8a\0e\00\81\b3\0e\00\ac\e7\0e\00c+\0f\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\00\00\00\00""))"
-test_trie_negative_keys,,,null,"static void test_trie_negative_keys(void)
+test_trie_negative_keys,,"Inserts an element into a collection at a specified position.
+Shifts existing elements as needed and updates size/metadata.",null,"static void test_trie_negative_keys(void)
 {
 	char my_key[] = {'a', 'b', 'c', -50, -20, '\0'};
 	Trie *trie;
@@ -24367,7 +24479,8 @@ test_trie_negative_keys,,,null,"static void test_trie_negative_keys(void)
   (elem (;0;) (i32.const 1) func $test_trie_new_free $test_trie_insert $test_trie_lookup $test_trie_remove $test_trie_replace $test_trie_insert_empty $test_trie_free_long $test_trie_negative_keys $test_trie_insert_binary $test_trie_insert_out_of_memory $test_trie_remove_binary)
   (data $.rodata (i32.const 1024) ""abc\ce\ec\00test_trie_insert_empty\00test_trie_insert_out_of_memory\00test_trie_insert_binary\00test_trie_remove_binary\00test_trie_insert\00test_trie_negative_keys\00trie_num_entries(trie) == entries\00test_trie_lookup\00hello\00hell\00trie_lookup(trie, \22999\22) == val\00%i\00*val == i\00testing\00trie_lookup(trie, \22\22) == buf\00asfasf\00test_trie_remove\00test value\00there\00generate_binary_trie\00generate_trie\00test_trie_new_free\00test_trie_replace\00hello world\00hi world\00goodbye world\00alloc_test_get_allocated() == allocated\00../files/src/test-trie.c\00a\00entries == NUM_TEST_VALUES\00trie_num_entries(trie) == NUM_TEST_VALUES\00trie_lookup(trie, \22000000000000000\22) == TRIE_NULL\00trie_lookup(trie, \22\22) == TRIE_NULL\00value == NULL\00trie == NULL\00trie_lookup(trie, my_key) == NULL\00trie_lookup_binary(trie, bin_key, sizeof(bin_key)) == NULL\00trie_lookup_binary(trie, bin_key4, sizeof(bin_key4)) == NULL\00trie_lookup_binary(trie, bin_key2, sizeof(bin_key2)) == NULL\00trie != NULL\00trie_lookup_binary(trie, bin_key, sizeof(bin_key)) != NULL\00999\00trie_num_entries(trie) == 2\00000000000000000\00trie_remove(trie, my_key) == 0\00trie_num_entries(trie) == 0\00trie_insert_binary(trie, bin_key3, sizeof(bin_key3), NULL) == 0\00trie_insert(trie, \22hello world\22, NULL) == 0\00trie_lookup_binary(trie, bin_key4, sizeof(bin_key4)) == 0\00trie_remove_binary(trie, bin_key4, sizeof(bin_key4)) == 0\00trie_remove_binary(trie, bin_key3, sizeof(bin_key3)) == 0\00trie_insert_binary(trie, bin_key4, sizeof(bin_key4), \22test value\22) == 0\00trie_insert(trie, \22hello world\22, \22test value\22) == 0\00trie_insert(trie, \22a\22, \22test value\22) == 0\00trie_remove(trie, \22000000000000000\22) == 0\00trie_remove(trie, \22\22) == 0\00trie_remove(trie, my_key) != 0\00trie_insert(trie, \22999\22, val) != 0\00trie_remove(trie, buf) != 0\00trie_insert(trie, \22\22, buf) != 0\00trie_num_entries(trie) != 0\00trie_insert(trie, test_strings[i], &test_array[i]) != 0\00trie_remove_binary(trie, bin_key, sizeof(bin_key)) != 0\00trie_remove_binary(trie, bin_key2, sizeof(bin_key2)) != 0\00trie_remove(trie, \22hello\22) != 0\00trie_insert(trie, \22hell\22, \22testing\22) != 0\00trie_insert(trie, \22testing\22, \22testing\22) != 0\00trie_insert(trie, \22\22, \22asfasf\22) != 0\00trie_insert(trie, \22hello\22, \22there\22) != 0\00trie_insert(trie, my_key, \22hello world\22) != 0\00trie_insert_binary(trie, bin_key, sizeof(bin_key), \22hello world\22) != 0\00trie_insert_binary(trie, bin_key, sizeof(bin_key), \22hi world\22) != 0\00trie_insert_binary(trie, bin_key2, sizeof(bin_key2), \22goodbye world\22) != 0\00trie_remove(trie, \22\22) != 0\00!strcmp(value, \22hello world\22)\00!strcmp(value, \22hi world\22)\00!strcmp(value, \22goodbye world\22)\00"")
   (data $.data (i32.const 3536) ""abc\00\01\02\ffabc\00\01\02\ff\00abcz\00zz\00\00\00\00\00\00\00\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\08\00\00\00\09\00\00\00\0a\00\00\00\0b\00\00\00\00\00\00\00""))"
-main,"int argc, char *argv[]",,0,"int main(int argc, char *argv[])
+main,"int argc, char *argv[]","Performs the operation implemented in the C code for this function.
+Handles memory and control flow according to the function logic.",0,"int main(int argc, char *argv[])
 {
 	run_tests(tests);
 

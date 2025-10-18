@@ -72,9 +72,9 @@ class CToWatConverter:
         # Find all C files in src directory or root
         src_dir = repo / "src"
         if src_dir.exists():
-            c_files = list(src_dir.glob("*.c"))
+            c_files = list(src_dir.rglob("*.c"))
         else:
-            c_files = list(repo.glob("*.c"))
+            c_files = list(repo.rglob("*.c"))
 
         if not c_files:
             print(f"No C files found in {repo_path}")
